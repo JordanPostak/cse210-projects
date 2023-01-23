@@ -3,6 +3,8 @@ class Entry
     public string Prompt { get; set; }
     public string Response { get; set; }
     public DateTime Date { get; set; }
+
+    //List of predefined prompts
     private static List<string> prompts = new List<string> { "What did I achieve today?",
         "What did I learn today?",
         "What did I struggle with today?",
@@ -13,6 +15,8 @@ class Entry
         "How did I challenge myself today?",
         "What did I do to contribute to my personal growth today?"};
 
+
+    // constructor - creates a new instance of the Entry class with the given prompt, response and date values
     public Entry(string prompt, string response, DateTime date)
     {
         Prompt = prompt;
@@ -20,6 +24,7 @@ class Entry
         Date = date;
     }
 
+    // display entries
     public void Display()
     {
         Console.WriteLine("Prompt: " + this.Prompt);
@@ -27,12 +32,14 @@ class Entry
         Console.WriteLine("Date: " + this.Date);
     }
 
+    // get prompt
     public static string GetPrompt()
     {
         int option = GetPromptOption();
         return prompts[option];
     }
 
+    // get prompt option
     private static int GetPromptOption()
     {
         Console.WriteLine();
