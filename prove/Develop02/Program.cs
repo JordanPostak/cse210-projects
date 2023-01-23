@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
+// This program exceeds requirments with the use of JSON for storage
+// This program exceeds requirments by adding in an option for the user to have a prompt randomly selected or to choose their own prompt from a list.
+// This program exceeds requirments with the addition of color coding!
+
 namespace Develop02
 {
     class Program
@@ -84,6 +88,7 @@ namespace Develop02
         // LoadJournal() method prompts the user to enter the name of a journal file
         // and loads the journal from that file if it exists and is not empty.
         // If the file does not exist or is empty, an error message is displayed.
+        // This program exceeds requirments with the use of JSON for storage
         static void LoadJournal()
         {
             Console.WriteLine();
@@ -115,6 +120,7 @@ namespace Develop02
         }
 
         // AddEntry() method prompts the user to choose whether they would like to choose their own prompt or have one randomly selected.
+        // This is one of the ways this program exceed requirements
         // If the user chooses to select their own prompt, it gets the prompt from the Entry class, displays it to the user,
         // prompts the user to enter a response, and creates a new entry with the prompt, response, and the current date and time.
         // If the user chooses to have a prompt randomly selected, the prompt is chosen from the predefined list of prompts in the Entry class.
@@ -149,6 +155,7 @@ namespace Develop02
 
         // DisplayJournal() method displays the current journal file to the user.
         // If the current file does not exist or is empty, an error message is displayed.
+        // This program exceeds requirments with the use of JSON for storage
         static void DisplayJournal()
         {
             string fileName = currentFile;
