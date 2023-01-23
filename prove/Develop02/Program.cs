@@ -114,13 +114,27 @@ namespace Develop02
             Console.WriteLine("Journal Loaded!");
         }
 
-        // AddEntry() method gets the prompt from the Entry class, displays it to the user,
-        // prompts the user to enter a response, and creates a new entry with the prompt, response,
-        // and the current date and time. The new entry is added to the journal and the journal is saved.
+        // AddEntry() method prompts the user to choose whether they would like to choose their own prompt or have one randomly selected.
+        // If the user chooses to select their own prompt, it gets the prompt from the Entry class, displays it to the user,
+        // prompts the user to enter a response, and creates a new entry with the prompt, response, and the current date and time.
+        // If the user chooses to have a prompt randomly selected, the prompt is chosen from the predefined list of prompts in the Entry class.
+        // The new entry is added to the journal and the journal is saved.
         static void AddEntry()
         {
             Console.ForegroundColor = ConsoleColor.Blue;
-            string prompt = Entry.GetPrompt();
+            string prompt;
+            Console.WriteLine("Would you like to choose your own question? (y/n)");
+            string answer = Console.ReadLine();
+            if (answer.ToLower() == "y")
+            {
+            prompt = Entry.GetPrompt();
+            }
+            else
+            {
+            Random rand = new Random();
+            int index = rand.Next(0, Entry.prompts.Count);
+            prompt = Entry.prompts[index];
+            }
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Prompt: " + prompt);
             Console.ForegroundColor = ConsoleColor.Yellow;

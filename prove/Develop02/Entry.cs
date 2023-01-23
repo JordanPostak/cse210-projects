@@ -5,7 +5,7 @@ class Entry
     public DateTime Date { get; set; }
 
     //List of predefined prompts
-    private static List<string> prompts = new List<string> { "What did I achieve today?",
+    internal static List<string> prompts = new List<string> { "What did I achieve today?",
         "What did I learn today?",
         "What did I struggle with today?",
         "What did I enjoy most about today?",
