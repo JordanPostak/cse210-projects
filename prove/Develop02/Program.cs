@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-// This program exceeds requirments with the use of JSON for storage
-// This program exceeds requirments by adding in an option for the user to have a prompt randomly selected or to choose their own prompt from a list.
-// This program exceeds requirments with the addition of color coding!
+// This program exceeds requirements with the use of JSON for storage
+// This program exceeds requirements by adding in an option for the user to have a prompt randomly selected or to choose their own prompt from a list.
+// This program exceeds requirements with the addition of color coding!
 
 namespace Develop02
 {
