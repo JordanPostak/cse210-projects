@@ -80,16 +80,27 @@ class Memorizer
         return !hiddenWords.Contains(null);
     }
 
-    private void DisplayScripture()
+        private void DisplayScripture()
     {
         Console.WriteLine(scripture.Reference);
         Console.WriteLine();
+
+        int currentLineWidth = 0;
+        int maxLineWidth = Console.WindowWidth - 10; // 10 is an arbitrary value to account for margins
+
         for (int i = 0; i < words.Length; i++)
         {
-            if (hiddenWords[i] != null)
-                Console.Write(hiddenWords[i] + " ");
-            else
-                Console.Write(words[i] + " ");
+            string word = hiddenWords[i] != null ? hiddenWords[i] : words[i];
+            int nextLineWidth = currentLineWidth + word.Length + 1; // 1 is for the space after the word
+
+            if (nextLineWidth > maxLineWidth)
+            {
+                Console.WriteLine();
+                currentLineWidth = 0;
+            }
+
+            Console.Write(word + " ");
+            currentLineWidth += word.Length + 1;
         }
     }
 
