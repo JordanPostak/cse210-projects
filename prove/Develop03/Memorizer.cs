@@ -4,14 +4,14 @@ class Memorizer
 {
     private Scripture scripture;
     private string[] words;
-    private bool[] hiddenWords;
+    private string[] hiddenWords;
     private Random rand;
 
     public Memorizer(Scripture scripture)
     {
         this.scripture = scripture;
         words = scripture.Text.Split(" ");
-        hiddenWords = new bool[words.Length];
+        hiddenWords = new string[words.Length];
         rand = new Random();
     }
 
@@ -43,8 +43,8 @@ class Memorizer
         for (int i = 0; i < count; i++)
         {
             int index = rand.Next(0, words.Length);
-            if (!hiddenWords[index])
-                hiddenWords[index] = true;
+            if (hiddenWords[index] == null)
+                hiddenWords[index] = new string('_', words[index].Length);
             else
                 i--;
         }
@@ -52,7 +52,7 @@ class Memorizer
 
     private bool IsScriptureFullyHidden()
     {
-        return !hiddenWords.Contains(false);
+        return !hiddenWords.Contains(null);
     }
 
     private void DisplayScripture()
@@ -60,8 +60,8 @@ class Memorizer
         Console.WriteLine(scripture.Reference);
         for (int i = 0; i < words.Length; i++)
         {
-            if (hiddenWords[i])
-                Console.Write("_ ");
+            if (hiddenWords[i] != null)
+                Console.Write(hiddenWords[i] + " ");
             else
                 Console.Write(words[i] + " ");
         }
