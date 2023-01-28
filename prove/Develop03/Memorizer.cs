@@ -20,7 +20,7 @@ class Memorizer
         ClearConsole();
         DisplayScripture();
 
-        while (true)
+        while (!IsScriptureFullyHidden())
         {
             Console.Write("Press enter to continue or type 'quit' to finish: ");
             string input = Console.ReadLine();
@@ -31,24 +31,40 @@ class Memorizer
             HideRandomWords();
             ClearConsole();
             DisplayScripture();
-
-            if (IsScriptureFullyHidden())
-                break;
         }
     }
 
-    private void HideRandomWords()
+private void HideRandomWords()
+{
+    int remainingWords = hiddenWords.Count(word => word == null);
+
+    if (remainingWords <= 3)
     {
-        int count = rand.Next(1, words.Length / 2);
+        for (int i = 0; i < hiddenWords.Length; i++)
+        {
+            if (hiddenWords[i] == null)
+            {
+                hiddenWords[i] = new string('_', words[i].Length);
+                remainingWords--;
+            }
+        }
+    }
+    else
+    {
+        int count = rand.Next(1, Math.Min(remainingWords, remainingWords / 2));
         for (int i = 0; i < count; i++)
         {
             int index = rand.Next(0, words.Length);
             if (hiddenWords[index] == null)
+            {
                 hiddenWords[index] = new string('_', words[index].Length);
+                remainingWords--;
+            }
             else
                 i--;
         }
     }
+}
 
     private bool IsScriptureFullyHidden()
     {
