@@ -15,8 +15,3 @@ class Program
         memorizer.Start();
     }
 }
-
-
-
-
-

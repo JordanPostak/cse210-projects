@@ -22,6 +22,8 @@ class Memorizer
 
         while (!IsScriptureFullyHidden())
         {
+            Console.WriteLine();
+            Console.WriteLine();
             Console.Write("Press enter to continue or type 'quit' to finish: ");
             string input = Console.ReadLine();
 
@@ -32,39 +34,46 @@ class Memorizer
             ClearConsole();
             DisplayScripture();
         }
+        if (IsScriptureFullyHidden())
+        {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Press enter once more to exit.");
+            Console.ReadLine();
+        }
     }
 
-private void HideRandomWords()
-{
-    int remainingWords = hiddenWords.Count(word => word == null);
-
-    if (remainingWords <= 3)
+    private void HideRandomWords()
     {
-        for (int i = 0; i < hiddenWords.Length; i++)
+        int remainingWords = hiddenWords.Count(word => word == null);
+
+        if (remainingWords <= 3)
         {
-            if (hiddenWords[i] == null)
+            for (int i = 0; i < hiddenWords.Length; i++)
             {
-                hiddenWords[i] = new string('_', words[i].Length);
-                remainingWords--;
+                if (hiddenWords[i] == null)
+                {
+                    hiddenWords[i] = new string('_', words[i].Length);
+                    remainingWords--;
+                }
+            }
+        }
+        else
+        {
+            int count = rand.Next(1, Math.Min(remainingWords, remainingWords / 2));
+            for (int i = 0; i < count; i++)
+            {
+                int index = rand.Next(0, words.Length);
+                if (hiddenWords[index] == null)
+                {
+                    hiddenWords[index] = new string('_', words[index].Length);
+                    remainingWords--;
+                }
+                else
+                    i--;
             }
         }
     }
-    else
-    {
-        int count = rand.Next(1, Math.Min(remainingWords, remainingWords / 2));
-        for (int i = 0; i < count; i++)
-        {
-            int index = rand.Next(0, words.Length);
-            if (hiddenWords[index] == null)
-            {
-                hiddenWords[index] = new string('_', words[index].Length);
-                remainingWords--;
-            }
-            else
-                i--;
-        }
-    }
-}
 
     private bool IsScriptureFullyHidden()
     {
@@ -74,6 +83,7 @@ private void HideRandomWords()
     private void DisplayScripture()
     {
         Console.WriteLine(scripture.Reference);
+        Console.WriteLine();
         for (int i = 0; i < words.Length; i++)
         {
             if (hiddenWords[i] != null)
