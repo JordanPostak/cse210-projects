@@ -38,7 +38,7 @@ class Memorizer
         {
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine("Press enter once more to exit.");
+            Console.Write("Press enter once more or type 'quit' to finish: ");
             Console.ReadLine();
         }
     }
