@@ -2,6 +2,7 @@
 
 class Memorizer
 {
+    // Private member variables
     private Scripture scripture;
     private string[] words;
     private string[] hiddenWords;
