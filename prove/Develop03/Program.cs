@@ -5,7 +5,7 @@ using System;
 //   1. A challenge people might have is memorizing the right scripture. 
 //      I have provided a menu so that the user can select the right scripture Or get a random scripture.
 //   2. This program works with a library of scriptures rather than a single one. 
-//      Rather than choose scriptures at random the user can select the right one.
+//      not only can a user get a scriptures at random the user can also select the right one.
 
 
 class Program
