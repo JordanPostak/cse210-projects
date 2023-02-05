@@ -22,26 +22,56 @@ class Program
             new Scripture(new Reference("Moroni 7:45"), new Text("And charity suffereth long, and is kind, and envieth not, and is not puffed up, seeketh not her own, is not easily provoked, thinketh no evil, and rejoiceth not in iniquity but rejoiceth in the truth, beareth all things, believeth all things, hopeth all things, endureth all things.")),
             new Scripture(new Reference("Abraham 3:22-23"), new Text("Now the Lord had shown unto me, Abraham, the intelligences that were organized before the world was; and among all these there were many of the noble and great ones;\nAnd God saw these souls that they were good, and he stood in the midst of them, and he said: These I will make my rulers; for he stood among those that were spirits, and he saw that they were good; and he said unto me: Abraham, thou art one of them; thou wast chosen before thou wast born."))
         };
-
+         Console.Clear();
         Console.WriteLine();
         Console.WriteLine("Welcome to Scripture Memorizer!");
-        Console.WriteLine("Here is a list of scriptures:");
+        Console.WriteLine();
         
-        // Display the scripture references and prompt the user to select one
+        // Display initial menu
+        Console.WriteLine("Would you like to:");
+        Console.WriteLine();
+        Console.WriteLine("1. Select a scripture");
+        Console.WriteLine("2. Get a random scripture");
+        Console.WriteLine();
+        Console.Write("Enter your choice (1 or 2): ");
+        int choice = int.Parse(Console.ReadLine());
+
+        Random rand = new Random();
+        // Execute based on user's choice
+        switch (choice)
+        {
+        case 1:
+        Console.Clear();
+        // Code for selecting a scripture
+        Console.WriteLine();
+        Console.WriteLine("Here is a list of scriptures:");
         Console.WriteLine();
         for (int i = 0; i < scriptures.Length; i++)
         {
-            Console.WriteLine($"{i + 1}. {scriptures[i].Reference.Value}");
+        Console.WriteLine($"{i + 1}. {scriptures[i].Reference.Value}");
         }
         Console.WriteLine();
         Console.Write("Select a scripture to memorize: ");
-        int selection = int.Parse(Console.ReadLine());
-        Scripture selectedScripture = scriptures[selection - 1];
-
+        int aselection = int.Parse(Console.ReadLine());
+        Scripture aselectedScripture = scriptures[aselection - 1];
         // Create an instance of the Memorizer class
-        Memorizer memorizer = new Memorizer(selectedScripture);
-
+        Memorizer memorizer1 = new Memorizer(aselectedScripture);
         // Start the memorization process
-        memorizer.Start();
+        memorizer1.Start();
+        break;
+        case 2:
+        Console.Clear();
+        // Code for randomly selecting a scripture
+        int randomIndex = rand.Next(scriptures.Length);
+        Scripture randomScripture = scriptures[randomIndex];
+        // Create an instance of the Memorizer class
+        Memorizer memorizer2 = new Memorizer(randomScripture);
+        // Start the memorization process
+        memorizer2.Start();
+        break;
+        default:
+        Console.WriteLine("Invalid choice. Please try again.");
+        break;
+        }
     }
 }

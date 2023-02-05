@@ -1,15 +1,18 @@
-//This is my Memorizer.cs file
+// Memorizer.cs
 
-// This class is called Memorizer and is responsible for hiding and displaying random words from a given scripture
+// This class is responsible for implementing the logic for a memory game, where a user can hide and display random words from a given scripture.
 class Memorizer
 {
-    // Private member variables
+    // Private member variable to store the scripture object
     private Scripture scripture;
+    // Private member variables to store the words and hidden words from the scripture text
     private string[] words;
     private string[] hiddenWords;
+    // Private member variable to store a random number generator
     private Random rand;
 
-    // scripture : an instance of the Scripture class
+// Constructor that takes in a scripture object as an argument
+// Initializes the words and hiddenWords arrays, and the random number generator
 public Memorizer(Scripture scripture)
 {
     this.scripture = scripture;
@@ -18,27 +21,34 @@ public Memorizer(Scripture scripture)
     rand = new Random();
 }
 
-    // Start function for running the memorization program
+    // Public function to start the memory game
     public void Start()
     {
+        // Clear the console
         ClearConsole();
+        // Display the scripture with the words to be memorized
         DisplayScripture();
 
-        // Loop until the scripture is fully hidden
+        // Keep looping until all words in the scripture have been hidden
         while (!IsScriptureFullyHidden())
         {
+            // Wait for the user to press enter or type "quit"
             Console.WriteLine();
             Console.WriteLine();
             Console.Write("Press enter to continue or type 'quit' to finish: ");
             string input = Console.ReadLine();
 
+            // If the user types "quit", break out of the loop
             if (input.ToLower() == "quit")
                 break;
 
+            // Hide a random set of words from the scripture
             HideRandomWords();
+            // Clear the console and display the scripture with hidden words
             ClearConsole();
             DisplayScripture();
         }
+        // If all words in the scripture have been hidden, wait for the user to press enter again
         if (IsScriptureFullyHidden())
         {
             Console.WriteLine();
@@ -48,18 +58,20 @@ public Memorizer(Scripture scripture)
         }
     }
 
-    // Function for hiding a random set of words in the scripture
+    // Private function to hide a random set of words from the scripture
     private void HideRandomWords()
     {
+        // Calculate the number of remaining words to be hidden
         int remainingWords = hiddenWords.Count(word => word == null);
 
-        // If there are only a few words remaining to be hidden, hide all of them
+        // If there are only a few words remaining, hide all of them
         if (remainingWords <= 3)
         {
             for (int i = 0; i < hiddenWords.Length; i++)
             {
                 if (hiddenWords[i] == null)
                 {
+                    // Replace the word with underscores of the same length
                     hiddenWords[i] = new string('_', words[i].Length);
                     remainingWords--;
                 }
@@ -67,6 +79,7 @@ public Memorizer(Scripture scripture)
         }
         else
         {
+            // Otherwise, hide a random number of words (up to half of the remaining words)
             int count = rand.Next(1, Math.Min(remainingWords, remainingWords / 2));
             for (int i = 0; i < count; i++)
             {
@@ -113,7 +126,7 @@ public Memorizer(Scripture scripture)
             currentLineWidth += word.Length + 1;
         }
     }
-
+    // Clears the console
     private void ClearConsole()
     {
         Console.Clear();
