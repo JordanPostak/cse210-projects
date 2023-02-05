@@ -13,8 +13,8 @@ class Memorizer
 public Memorizer(Scripture scripture)
 {
     this.scripture = scripture;
-    words = scripture.Text.TextValue.Split(" ");
-    hiddenWords = new string[words.Length];
+    words = scripture.Text.GetWords();
+    hiddenWords = new string[words.Count()];
     rand = new Random();
 }
 
