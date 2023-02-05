@@ -1,5 +1,6 @@
 //This is my Memorizer.cs file
 
+// This class is called Memorizer and is responsible for hiding and displaying random words from a given scripture
 class Memorizer
 {
     // Private member variables
@@ -8,19 +9,22 @@ class Memorizer
     private string[] hiddenWords;
     private Random rand;
 
-    public Memorizer(Scripture scripture)
-    {
-        this.scripture = scripture;
-        words = scripture.Text.Split(" ");
-        hiddenWords = new string[words.Length];
-        rand = new Random();
-    }
+    // scripture : an instance of the Scripture class
+public Memorizer(Scripture scripture)
+{
+    this.scripture = scripture;
+    words = scripture.Text.TextValue.Split(" ");
+    hiddenWords = new string[words.Length];
+    rand = new Random();
+}
 
+    // Start function for running the memorization program
     public void Start()
     {
         ClearConsole();
         DisplayScripture();
 
+        // Loop until the scripture is fully hidden
         while (!IsScriptureFullyHidden())
         {
             Console.WriteLine();
@@ -44,10 +48,12 @@ class Memorizer
         }
     }
 
+    // Function for hiding a random set of words in the scripture
     private void HideRandomWords()
     {
         int remainingWords = hiddenWords.Count(word => word == null);
 
+        // If there are only a few words remaining to be hidden, hide all of them
         if (remainingWords <= 3)
         {
             for (int i = 0; i < hiddenWords.Length; i++)
@@ -76,12 +82,14 @@ class Memorizer
         }
     }
 
+    // Check if all words in scripture have been hidden
     private bool IsScriptureFullyHidden()
     {
         return !hiddenWords.Contains(null);
     }
 
-        private void DisplayScripture()
+    // Function for displaying scripture with hidden words
+    private void DisplayScripture()
     {
         Console.WriteLine(scripture.Reference);
         Console.WriteLine();
@@ -89,6 +97,7 @@ class Memorizer
         int currentLineWidth = 0;
         int maxLineWidth = Console.WindowWidth - 10; // 10 is an arbitrary value to account for margins
 
+        // Loop through all words in scripture and display them or their hidden version
         for (int i = 0; i < words.Length; i++)
         {
             string word = hiddenWords[i] != null ? hiddenWords[i] : words[i];

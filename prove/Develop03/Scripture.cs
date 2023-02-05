@@ -2,32 +2,16 @@
 
 class Scripture
 {
-    // Private member variables
-    private string reference;
-    private string text;
+    // Property for the reference of the scripture
+    public Reference Reference { get; set; }
 
-    // constructor that takes in a reference and text for a scripture
-    public Scripture(string reference, string text)
-    {
-        this.reference = reference;
-        this.text = text;
-    }
+    // Property for the text of the scripture
+    public Text Text { get; set; }
 
-    // property for the reference of the scripture
-    public string Reference
+    // Constructor that takes in a reference and text for a scripture
+    public Scripture(Reference reference, Text text)
     {
-        get { return reference; }
-    }
-
-    // property for the text of the scripture
-    public string Text
-    {
-        get { return text; }
-    }
-
-    // method that splits the text of the scripture into an array of verses
-    public string[] GetVerses()
-    {
-        return text.Split("\n");
+        this.Reference = reference;
+        this.Text = text;
     }
 }
