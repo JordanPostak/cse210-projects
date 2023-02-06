@@ -16,7 +16,7 @@ class Memorizer
 public Memorizer(Scripture scripture)
 {
     this.scripture = scripture;
-    words = scripture.Text.GetWords();
+    words = scripture.GetText().GetWords();
     hiddenWords = new string[words.Count()];
     rand = new Random();
 }
@@ -104,7 +104,7 @@ public Memorizer(Scripture scripture)
     // Function for displaying scripture with hidden words
     private void DisplayScripture()
     {
-        Console.WriteLine(scripture.Reference);
+        Console.WriteLine(scripture.GetReference());
         Console.WriteLine();
 
         int currentLineWidth = 0;

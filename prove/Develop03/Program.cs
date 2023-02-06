@@ -53,7 +53,7 @@ class Program
         Console.WriteLine();
         for (int i = 0; i < scriptures.Length; i++)
         {
-        Console.WriteLine($"{i + 1}. {scriptures[i].Reference.Value}");
+        Console.WriteLine($"{i + 1}. {scriptures[i].GetReference().GetValue()}");
         }
         Console.WriteLine();
         Console.Write("Select a scripture to memorize: ");
