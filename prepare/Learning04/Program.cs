@@ -4,20 +4,15 @@ class Program
 {
     static void Main(string[] args)
     {
-        Fraction f1 = new Fraction();
-        Console.WriteLine(f1.GetFractionString());
-        Console.WriteLine(f1.GetDecimalValue());
+        Assignment a1 = new Assignment("Jordan Postak", "Addition");
+        Console.WriteLine(a1.GetSummary());
 
-        Fraction f2 = new Fraction(5);
-        Console.WriteLine(f2.GetFractionString());
-        Console.WriteLine(f2.GetDecimalValue());
+        MathAssignment a2 = new MathAssignment("Jesse Postak", "Subtraction", "6.2", "10-20");
+        Console.WriteLine(a2.GetSummary());
+        Console.WriteLine(a2.GetHomeworkList());
 
-        Fraction f3 = new Fraction(3, 4);
-        Console.WriteLine(f3.GetFractionString());
-        Console.WriteLine(f3.GetDecimalValue());
-
-        Fraction f4 = new Fraction(1, 3);
-        Console.WriteLine(f4.GetFractionString());
-        Console.WriteLine(f4.GetDecimalValue());
+        WritingAssignment a3 = new WritingAssignment("Ann Postak", "American Heratage", "The Migration of the Pioneers");
+        Console.WriteLine(a3.GetSummary());
+        Console.WriteLine(a3.GetWritingInformation());
     }
 }
