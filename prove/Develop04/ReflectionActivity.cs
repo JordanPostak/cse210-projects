@@ -2,25 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 
+// the namespace for the program
 namespace MindfulnessApp
 {
-public class ReflectionActivity : Activity
+public class ReflectionActivity : Program
 {
-    private List<string> prompts;
-    private List<string> questions;
-    private List<string> items;
-    private DateTime endTime;
+    // Private member variables (uniaque to the class) to store prompts, questions, and end time
+    private List<string> _prompts;
+    private List<string> _questions;
+    private DateTime _endTime;
 
+    // Constructor to initialize the prompts and questions lists
     public ReflectionActivity()
     {
-        prompts = new List<string>()
+        _prompts = new List<string>()
         {
             "Think of a time when you stood up for someone else.",
             "Think of a time when you did something really difficult.",
             "Think of a time when you helped someone in need.",
             "Think of a time when you did something truly selfless."
         };
-        questions = new List<string>()
+        _questions = new List<string>()
         {
             "Why was this experience meaningful to you?",
             "Have you ever done anything like this before?",
@@ -29,34 +31,50 @@ public class ReflectionActivity : Activity
             "What made this time different than other times when you were not as successful?",
             "What is your favorite thing about this experience?"
         };
-        items = new List<string>();
     }
 
+    // Method (unique to the class) to randomly select a prompt and display it to the user
     public void randomreflect()
     {
-        int duration = base.duration;
+        // Get the duration of the activity from the base class
+        int duration = base._duration;
+
+        // Select a random prompt from the prompts list and display it to the user
         Random rand = new Random();
-        string prompt = prompts[rand.Next(prompts.Count)];
+
+        // Select a random prompt from the prompts list and display it to the user
+        string prompt = _prompts[rand.Next(_prompts.Count)];
         Console.WriteLine($"Consider the following prompt:\n\n{prompt}\n");
         Console.WriteLine("When you have something in mind press enter to continue.");
         Console.ReadLine();
 
+        // Set the end time of the activity based on the duration
+        _endTime = DateTime.Now.AddSeconds(duration);
 
-        endTime = DateTime.Now.AddSeconds(duration);
-        while (DateTime.Now < endTime)
+        // Loop until the end time is reached
+        while (DateTime.Now < _endTime)
         {
-            int randomIndex = rand.Next(questions.Count);
-            string randomQuestion = questions[randomIndex];
+            // Select a random question from the questions list and display it to the user
+            int randomIndex = rand.Next(_questions.Count);
+            string randomQuestion = _questions[randomIndex];
             Console.Write($"{randomQuestion}  ");
+
+            // Call the ShowSpinner method to display a spinner animation for 10 seconds
             ShowSpinner(10000);
         }
     }
 
+    // Method to run the activity
     public void Run()
     {
+        // Call the BeginActivity method to display the activity name and description
         BeginActivity("Reflection", "help you reflect on positive experiences in your life.");
+
+        // Call the randomreflect method to begin the activity
         randomreflect();
-        FinishingActivity("Reflection", GetDuration(activity));
+
+        // Call the FinishingActivity method to display the activity completion message
+        FinishingActivity("Reflection", GetDuration(_activity));
     }
 
 }

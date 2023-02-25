@@ -1,16 +1,21 @@
 using System;
 using System.Collections.Generic;
 
+// the namespace for the program
 namespace MindfulnessApp
 {
-public class ListingActivity : Activity
+public class ListingActivity : Program
 {
-    private List<string> prompts;
-    private List<string> questions;
-    private List<string> items;
+    // Private member variables (uniaque to the class) to store prompts, questions, and end time
+    private List<string> _prompts;// A list of prompts to choose from
+    private List<string> _questions;// A list of questions to ask after the activity
+    private List<string> _items;// A list to store the items the user lists
+    
+    // Constructor to initialize the prompts, questions and items lists
     public ListingActivity()
     {
-        prompts = new List<string>()
+        // Initialize the prompts, questions, and items lists
+        _prompts = new List<string>()
         {
             "List as many things as you can that you are grateful for in your life.",
             "List as many things as you can that make you happy.",
@@ -18,27 +23,31 @@ public class ListingActivity : Activity
             "List as many things as you can that you love about yourself.",
             "List as many things as you can that you are looking forward to in the future."
         };
-        questions = new List<string>()
+        _questions = new List<string>()
         {
-            "Why are you grateful for this thing?",
-            "What makes this thing so special to you?",
-            "How does this thing impact your life?",
-            "What would your life be like without this thing?",
-            "What can you do to show appreciation for this thing?"
+            "Why are you grateful for these things?",
+            "What makes these things so special to you?",
+            "How do these things impact your life?",
+            "What would your life be like without these things?",
+            "What can you do to show appreciation for these things?"
         };
-        items = new List<string>();
+        _items = new List<string>();
     } 
 
+    //Method (unique to the class) for listing the items.
     private void Listit()
     {
+        // Get the duration of the activity from the base class
+        int duration = base._duration;
+
         // Choose a random prompt from the list
-        string prompt = prompts[new Random().Next(prompts.Count)];
+        string prompt = _prompts[new Random().Next(_prompts.Count)];
 
         Console.WriteLine(prompt);
         Console.WriteLine("> Start typing and press enter after each item:");
 
         // Set the end time for the activity
-        DateTime endTime = DateTime.Now.AddSeconds(duration);
+        DateTime endTime = DateTime.Now.AddSeconds(_duration);
 
         // Loop until the end time is reached
         while (DateTime.Now < endTime)
@@ -46,25 +55,30 @@ public class ListingActivity : Activity
             string item = Console.ReadLine();
 
             // Add the item to the list
-            items.Add(item);
+            _items.Add(item);
         }
 
         // Display the number of items the user listed
-        Console.WriteLine("You listed {0} items!", items.Count);
+        Console.WriteLine("You listed {0} items!", _items.Count);
 
         // Choose a random question from the list
-        string question = questions[new Random().Next(questions.Count)];
+        string question = _questions[new Random().Next(_questions.Count)];
 
         Console.WriteLine(question);
         Console.ReadLine();
     }
 
+    // Method to run the activity
     public void Run()
     {
-        int duration = base.duration;
+        // Call the BeginActivity method to display the activity name and description
         BeginActivity("Listing", "help you focus on the good things in life by having you list as many items as you wish.");
+
+        // Call the Listit method to begin the activity
         Listit();
-        FinishingActivity("Listing", GetDuration(activity));
+
+        // Call the FinishingActivity method to display the activity completion message
+        FinishingActivity("Listing", GetDuration(_activity));
     }
 }
 }

@@ -1,18 +1,28 @@
+// the namespace for the program
 namespace MindfulnessApp
 {
-public class BreathingActivity : Activity
-{
+
     
+public class BreathingActivity : Program
+{
+    //Method (unique to the class) for the breathing activity.
     private void CountdownBreath(int duration)
     {
-        const int countdownDuration = 5; // 5 seconds
-        const int Delay = 1000; // 1 second
+        // The duration of each countdown (in seconds)
+        const int countdownDuration = 5; 
+
+        // The delay between each number (in milliseconds)
+        const int Delay = 1000; 
         int remainingDuration = duration;
 
-        Console.Clear();
-        while (remainingDuration > 0)
+        // Clear the console at the beginning of the countdown
+        Console.Clear(); 
+
+        // Keep running the countdown until the total duration has elapsed
+        while (remainingDuration > 0) 
         {
-            for (int i = 0; i < 3; i++) // Run the loop three times for "Breath in", "Hold Breath" and "Breath out"
+            // Run the loop three times for "Breath in", "Hold" and "Breath out"
+            for (int i = 0; i < 3; i++)
             {
                 string message;
 
@@ -32,27 +42,42 @@ public class BreathingActivity : Activity
                         break;
                 }
 
+                // Display the breathing phase message (e.g. "Breath in...")
                 Console.Write($"{message} ");
                 for (int j = countdownDuration; j >= 1; j--)
                 {
+                    // Display the countdown numbers (e.g. "5 4 3 2 1")
                     Console.Write($"{j} ");
-                    Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop); // Move the cursor back to the previous number position
+
+                    // Move the cursor back to the previous number position to overwrite it with the next number
+                    Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
+
+                    // Wait for the delay before displaying the next number
                     Thread.Sleep(Delay);
                 }
+                // Move to the next line after the countdown is finished
                 Console.WriteLine();
 
-                Console.Clear(); // Clear the console after each breathing phase
+                // Clear the console after each breathing phase
+                Console.Clear();
             }
 
-            remainingDuration -= countdownDuration * 3; // Subtract the duration of three breathing phases
+            // Subtract the duration of three breathing phases from the total duration
+            remainingDuration -= countdownDuration * 3; 
         }
     }
 
+    // Method to run the activity
     public void Run()
     {
+        // Call the BeginActivity method to display the activity name and description
         BeginActivity("Breathing", "help you relax and focus.");
-        CountdownBreath(duration);
-        FinishingActivity("Breathing", GetDuration(activity));
+
+        // Call the CountdownBreath method to begin the activity
+        CountdownBreath(_duration);
+
+        // Call the FinishingActivity method to display the activity completion message
+        FinishingActivity("Breathing", GetDuration(_activity));
     }
 }
 } 
