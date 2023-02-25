@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 
+namespace MindfulnessApp
+{
 public class ListingActivity : Activity
 {
     private List<string> prompts;
@@ -25,7 +27,7 @@ public class ListingActivity : Activity
             "What can you do to show appreciation for this thing?"
         };
         items = new List<string>();
-    }
+    } 
 
     private void Listit()
     {
@@ -60,8 +62,9 @@ public class ListingActivity : Activity
     public void Run()
     {
         int duration = base.duration;
-        BeginActivity("Listing", "help you focus on the good things in life by having you list as many as you can in a certain area.");
+        BeginActivity("Listing", "help you focus on the good things in life by having you list as many items as you wish.");
         Listit();
         FinishingActivity("Listing", GetDuration(activity));
     }
+}
 }

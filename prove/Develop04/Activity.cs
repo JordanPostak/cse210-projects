@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 
-public abstract class Activity
+namespace MindfulnessApp
+{
+public abstract class Activity : Program
 {
     protected int duration = 0;
     protected string activity = "";
@@ -100,7 +102,7 @@ public abstract class Activity
         if (int.TryParse(input, out duration) && duration > 0)
         {
             Console.WriteLine();
-            Console.WriteLine($"You have selected a {duration} second.");
+            Console.WriteLine($"You have selected a {duration} second session.");
             Console.WriteLine();
             Console.Write("Press Enter > ");
             Console.ReadKey();
@@ -117,4 +119,5 @@ public abstract class Activity
     return duration;
 }
 
+} 
 }

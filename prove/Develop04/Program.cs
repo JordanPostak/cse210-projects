@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace MindfulnessApp
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -51,4 +51,4 @@ namespace MindfulnessApp
             Console.WriteLine("Thank you for using the Mindfulness App!");
         }
     }
-}
+} 

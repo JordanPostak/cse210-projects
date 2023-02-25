@@ -1,4 +1,6 @@
-class BreathingActivity : Activity
+namespace MindfulnessApp
+{
+public class BreathingActivity : Activity
 {
     
     private void CountdownBreath(int duration)
@@ -53,3 +55,4 @@ class BreathingActivity : Activity
         FinishingActivity("Breathing", GetDuration(activity));
     }
 }
+} 

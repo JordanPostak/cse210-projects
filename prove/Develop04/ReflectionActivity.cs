@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 
-class ReflectionActivity : Activity
+namespace MindfulnessApp
+{
+public class ReflectionActivity : Activity
 {
     private List<string> prompts;
     private List<string> questions;
@@ -57,4 +59,5 @@ class ReflectionActivity : Activity
         FinishingActivity("Reflection", GetDuration(activity));
     }
 
+}
 }
