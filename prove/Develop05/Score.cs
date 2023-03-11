@@ -1,35 +1,22 @@
-//Score.cs:
-
+// Score.cs
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace EternalQuest
 {
     class Score
     {
-        private int value;
+        private int _score;
 
-        public int Value 
-        { 
-            get => value;
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), "Score value cannot be negative");
-                }
-
-                this.value = value;
-            }
+        public int GetScore()
+        {
+            return _score;
         }
 
-        public void Add(int _score)
+        public void AddPoints(int points)
         {
-            if (_score < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(_score), "Points to add cannot be negative");
-            }
-
-            this.Value += _score;
+            _score += points;
         }
     }
 }

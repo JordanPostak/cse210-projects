@@ -1,6 +1,8 @@
 //ChecklistGoal.cs:
 
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace EternalQuest
 {
@@ -23,10 +25,12 @@ namespace EternalQuest
         public override void CreateGoal()
         {
             ChecklistGoal newGoal = new ChecklistGoal();
+            newGoal._goaltype = "ChecklistGoal";
+            newGoal._completed = "[]";
+            newGoal._count = $"[0/{_count}]";
             newGoal._name = _name;
             newGoal._description = _description;
             newGoal._points = _points;
-            newGoal._count = $"0/{_count}";
             _goals.Add(newGoal);
         }
         public void Run()

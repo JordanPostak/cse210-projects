@@ -2,20 +2,21 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace EternalQuest
 {
     class Program
     {
-        
+        protected static int _score { get; set; }
         protected static List<Program> _goals = new List<Program>();
+        protected string _goaltype { get; set; }
         protected string _completed { get; set; }
         protected string _name { get; set; }
         protected string _description { get; set; }
         protected int _points { get; set; }
         protected string _count { get; set; }
         protected int _bonus { get; set; }
-        protected int _score { get; set; }
 
         public virtual void CreateGoal()
         {
@@ -49,27 +50,57 @@ namespace EternalQuest
                 return;
             }
         }    
-        public static void RecordEvent(string goalName)
-        {
-            Program goal = _goals.Find(g => g._name == goalName);
+public static void RecordEvent()
+{
 
-            if (goal != null)
-            {
-                goal._completed = "[X]";
-                Console.WriteLine("Event recorded successfully!");
-            }
-            else
-            {
-                Console.WriteLine("Goal not found.");
-            }
+    // Ask the user which goal they want to record
+    Console.WriteLine("Please choose a goal to record:");
+    for (int i = 0; i < _goals.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}. {_goals[i]._name}");
+    }
+    int choice;
+    if (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > _goals.Count)
+    {
+        Console.WriteLine("Invalid input.");
+        return;
+    }
+    Program selectedGoal = _goals[choice - 1];
+
+    // Update the selected goal based on its type
+    if (selectedGoal._goaltype is "SimpleGoal")
+    {
+        selectedGoal._completed = "[X]";
+        _score += selectedGoal._points;
+    }
+    else if (selectedGoal._goaltype is "EternalGoal")
+    {
+        _score += selectedGoal._points;
+    }
+    else if (selectedGoal._goaltype is "ChecklistGoal")
+    {
+        selectedGoal._count += 1;
+        string[] parts = selectedGoal._completed.Split('/');
+        int completed = int.Parse(parts[0]) + 1;
+        int total = int.Parse(parts[1]);
+        if (completed == total)
+        {
+            _score += selectedGoal._points + selectedGoal._bonus;
         }
+        else
+        {
+            _score += selectedGoal._points;
+        }
+        selectedGoal._count = $"[{completed}/{total}]";
+    }
+}
 
         public static void ShowGoals()
         {
             Console.WriteLine("Goals:");
             foreach (Program goal in _goals)
             {
-                Console.WriteLine("- {0} ({1} points) - {2}", goal._name, goal._points, goal._description);
+                Console.WriteLine("- {0} ({1} points) - {2}", goal._name, goal._description);
             }
         }
 
@@ -157,9 +188,11 @@ namespace EternalQuest
         public static void Main(string[] args)
         {
             Program program = new Program();
-
+            
             while (true)
             {
+                
+                Console.WriteLine($"Your Score is {_score}");
                 Console.WriteLine("What do you want to do?");
                 Console.WriteLine("1 - Create new goal");
                 Console.WriteLine("2 - Record event");
@@ -179,7 +212,7 @@ namespace EternalQuest
                     case "2":
                         Console.WriteLine("Enter goal name:");
                         string goalName = Console.ReadLine();
-                        RecordEvent(goalName);
+                        RecordEvent();
                         break;
                     case "3":
                         ShowGoals();

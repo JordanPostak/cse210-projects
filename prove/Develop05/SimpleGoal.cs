@@ -1,6 +1,8 @@
 //SimpleGoal.cs:
 
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace EternalQuest
 {
@@ -9,6 +11,7 @@ namespace EternalQuest
         public override void CreateGoal()
         {
             SimpleGoal newGoal = new SimpleGoal();
+            newGoal._goaltype = "SimpleGoal";
             newGoal._completed = "[]";
             newGoal._name = _name;
             newGoal._description = _description;
@@ -19,6 +22,7 @@ namespace EternalQuest
         {
            GoalStart(); 
            CreateGoal();
+           Console.WriteLine(_goals);
            Console.WriteLine($"New simple goal created: {_name}");
            return; 
         }
