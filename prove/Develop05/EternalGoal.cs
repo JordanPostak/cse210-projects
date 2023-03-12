@@ -1,26 +1,26 @@
 //EternalGoal.cs:
 
 using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace EternalQuest
 {
-    class EternalGoal : Program
+    public class EternalGoal : Program
     {
-        public override void CreateGoal()
+        public override void AddToGoalsList()
         {
             EternalGoal newGoal = new EternalGoal();
             newGoal._goaltype = "EternalGoal";
             newGoal._name = _name;
             newGoal._description = _description;
             newGoal._points = _points;
-            _goals.Add(newGoal);
+            Program._goals.Add(newGoal);
         }
         public void Run()
         {
+           EternalGoal newGoal = new EternalGoal();
            GoalStart(); 
-           CreateGoal();
+           AddToGoalsList();
+           Console.WriteLine($"{Program._goals}");
            Console.WriteLine($"New eternal goal created: {_name}");
            return;
         }

@@ -1,28 +1,27 @@
 //ChecklistGoal.cs:
 
 using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace EternalQuest
 {
-    class ChecklistGoal : Program
+    public class ChecklistGoal : Program
     {
-        string count = "";
         public void Bonus()
         {
+            ChecklistGoal newGoal = new ChecklistGoal();
             Console.WriteLine("How many times should this goal be completed?");
-            string _count = Console.ReadLine();
+            _count = Console.ReadLine();
 
-            Console.WriteLine("How bonus points will be earned when finished?");
-            int _bonus;
-            if (!int.TryParse(Console.ReadLine(), out _bonus))
+            Console.WriteLine("How many bonus points will be earned when finished?");
+            int bonus;
+            if (!int.TryParse(Console.ReadLine(), out bonus))
             {
                 Console.WriteLine("Invalid bonus value. Please enter a valid number.");
                 return;
             }
+            _bonus = bonus;
         }
-        public override void CreateGoal()
+        public override void AddToGoalsList()
         {
             ChecklistGoal newGoal = new ChecklistGoal();
             newGoal._goaltype = "ChecklistGoal";
@@ -31,13 +30,16 @@ namespace EternalQuest
             newGoal._name = _name;
             newGoal._description = _description;
             newGoal._points = _points;
-            _goals.Add(newGoal);
+            newGoal._bonus = _bonus;
+            Program._goals.Add(newGoal);
         }
         public void Run()
         {
+           ChecklistGoal newGoal = new ChecklistGoal();
            GoalStart(); 
            Bonus();
-           CreateGoal();
+           AddToGoalsList();
+           Console.WriteLine($"{Program._goals}");
            Console.WriteLine($"New checklist goal created: {_name}");
            return;
         }

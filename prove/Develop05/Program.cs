@@ -1,15 +1,13 @@
 //Program.cs:
 
 using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace EternalQuest
 {
-    class Program
+    public class Program
     {
         protected static int _score { get; set; }
-        protected static List<Program> _goals = new List<Program>();
+        public static  List<Program> _goals = new List<Program>();
         protected string _goaltype { get; set; }
         protected string _completed { get; set; }
         protected string _name { get; set; }
@@ -18,7 +16,7 @@ namespace EternalQuest
         protected string _count { get; set; }
         protected int _bonus { get; set; }
 
-        public virtual void CreateGoal()
+        static void CreateGoal()
         {
             while (true)
             {
@@ -50,61 +48,97 @@ namespace EternalQuest
                 return;
             }
         }    
-public static void RecordEvent()
-{
-
-    // Ask the user which goal they want to record
-    Console.WriteLine("Please choose a goal to record:");
-    for (int i = 0; i < _goals.Count; i++)
-    {
-        Console.WriteLine($"{i + 1}. {_goals[i]._name}");
-    }
-    int choice;
-    if (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > _goals.Count)
-    {
-        Console.WriteLine("Invalid input.");
-        return;
-    }
-    Program selectedGoal = _goals[choice - 1];
-
-    // Update the selected goal based on its type
-    if (selectedGoal._goaltype is "SimpleGoal")
-    {
-        selectedGoal._completed = "[X]";
-        _score += selectedGoal._points;
-    }
-    else if (selectedGoal._goaltype is "EternalGoal")
-    {
-        _score += selectedGoal._points;
-    }
-    else if (selectedGoal._goaltype is "ChecklistGoal")
-    {
-        selectedGoal._count += 1;
-        string[] parts = selectedGoal._completed.Split('/');
-        int completed = int.Parse(parts[0]) + 1;
-        int total = int.Parse(parts[1]);
-        if (completed == total)
+        static void RecordEvent()
         {
-            _score += selectedGoal._points + selectedGoal._bonus;
-        }
-        else
-        {
-            _score += selectedGoal._points;
-        }
-        selectedGoal._count = $"[{completed}/{total}]";
-    }
-}
+            // List all the goals that can be recorded
+            Console.WriteLine("Goals available to record:");
+            for (int i = 0; i < Program._goals.Count; i++)
+            {
+                Program goal = Program._goals[i];
+                if (goal._goaltype == "SimpleGoal" && goal._completed == "[]")
+                {
+                    SimpleGoal simpleGoal = (SimpleGoal)goal;
+                    Console.WriteLine($"{i + 1}. SimpleGoal - complete?:{simpleGoal._completed} - {simpleGoal._name} - {simpleGoal._description} points:{simpleGoal._points}");
+                }
+                else if (goal._goaltype == "EternalGoal")
+                {
+                    EternalGoal eternalGoal = (EternalGoal)goal;
+                    Console.WriteLine($"{i + 1}. EternalGoal - {eternalGoal._name} - {eternalGoal._description} points:{eternalGoal._points}");
+                }
+                else if (goal._goaltype == "ChecklistGoal" && goal._completed == "[]")
+                {
+                    ChecklistGoal checklistGoal = (ChecklistGoal)goal;
+                    Console.WriteLine($"{i + 1}. ChecklistGoal - complete?:{checklistGoal._completed} - {checklistGoal._count} - {checklistGoal._name} - {checklistGoal._description} points:{checklistGoal._points} - bonus points:{checklistGoal._bonus}");
+                }
+            }
 
-        public static void ShowGoals()
+            // Ask the user which goal they want to record
+            Console.WriteLine("Please choose a goal to record:");
+            int choice;
+            if (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > Program._goals.Count)
+            {
+                Console.WriteLine("Invalid input.");
+                return;
+            }
+            Program selectedGoal = Program._goals[choice - 1];
+
+            // Update the selected goal based on its type
+            if (selectedGoal._goaltype == "SimpleGoal")
+            {
+                SimpleGoal simpleGoal = (SimpleGoal)selectedGoal;
+                simpleGoal._completed = "[X]";
+                Program._score += simpleGoal._points;
+            }
+            else if (selectedGoal._goaltype == "EternalGoal")
+            {
+                EternalGoal eternalGoal = (EternalGoal)selectedGoal;
+                Program._score += eternalGoal._points;
+            }
+            else if (selectedGoal._goaltype == "ChecklistGoal")
+            {
+                ChecklistGoal checklistGoal = (ChecklistGoal)selectedGoal;
+                string[] parts = checklistGoal._count.Trim('[', ']').Split('/');
+                int completed = int.Parse(parts[0]) + 1;
+                int total = int.Parse(parts[1]);
+                if (completed == total)
+                {
+                    Program._score += checklistGoal._points + checklistGoal._bonus;
+                    checklistGoal._completed = "[X]";
+                    checklistGoal._count = $"[{completed}/{total}]";
+                }
+                else
+                {
+                    Program._score += checklistGoal._points;
+                    checklistGoal._count = $"[{completed}/{total}]";
+                }
+            }
+        }
+
+        static void ShowGoals()
         {
             Console.WriteLine("Goals:");
             foreach (Program goal in _goals)
             {
-                Console.WriteLine("- {0} ({1} points) - {2}", goal._name, goal._description);
+                Console.Write("- ");
+                if (goal._goaltype == "SimpleGoal")
+                {
+                    SimpleGoal simpleGoal = (SimpleGoal)goal;
+                    Console.WriteLine("{0} - complete?:{1} - {2} - {3} - points:{4}", simpleGoal._goaltype, simpleGoal._completed, simpleGoal._name, simpleGoal._description, simpleGoal._points);
+                }
+                else if (goal._goaltype == "EternalGoal")
+                {
+                    EternalGoal eternalGoal = (EternalGoal)goal;
+                    Console.WriteLine("{0} - {1} - {2} - points:{3}", eternalGoal._goaltype, eternalGoal._name, eternalGoal._description, eternalGoal._points);
+                }
+                else if (goal._goaltype == "ChecklistGoal")
+                {
+                    ChecklistGoal checklistGoal = (ChecklistGoal)goal;
+                    Console.WriteLine("{0} - complete?:{1} - count:{2} - {3} - {4} - points:{5} - bonus points:{6}", checklistGoal._goaltype, checklistGoal._completed, checklistGoal._count, checklistGoal._name, checklistGoal._description, checklistGoal._points, checklistGoal._bonus);
+                }
             }
         }
 
-    public static void SaveGoals()
+        static void SaveGoals()
         {
             try
             {
@@ -113,9 +147,24 @@ public static void RecordEvent()
 
                 using (StreamWriter writer = new StreamWriter(filename))
                 {
+                    writer.WriteLine(Program._score);
                     foreach (Program goal in _goals)
                     {
-                        writer.WriteLine("{0},{1},{2},{3}", goal._name, goal._description, goal._points, goal._completed);
+                        if (goal._goaltype == "SimpleGoal")
+                        {
+                            SimpleGoal simpleGoal = (SimpleGoal)goal;
+                            writer.WriteLine("{0},{1},{2},{3},{4}", simpleGoal._goaltype, simpleGoal._completed, simpleGoal._name, simpleGoal._description, simpleGoal._points);
+                        }
+                        else if (goal._goaltype == "EternalGoal")
+                        {
+                            EternalGoal eternalGoal = (EternalGoal)goal;
+                            writer.WriteLine("{0},{1},{2},{3}", eternalGoal._goaltype, eternalGoal._name, eternalGoal._description, eternalGoal._points);
+                        }
+                        else if (goal._goaltype == "ChecklistGoal")
+                        {
+                            ChecklistGoal checklistGoal = (ChecklistGoal)goal;
+                            writer.WriteLine("{0},{1},{2},{3},{4},{5},{6}", checklistGoal._goaltype, checklistGoal._completed, checklistGoal._count, checklistGoal._name, checklistGoal._description, checklistGoal._points, checklistGoal._bonus);
+                        }
                     }
                 }
 
@@ -127,7 +176,7 @@ public static void RecordEvent()
             }
         }
 
-        public static void LoadGoals()
+       static void LoadGoals()
         {
             try
             {
@@ -136,28 +185,75 @@ public static void RecordEvent()
 
                 using (StreamReader reader = new StreamReader(filename))
                 {
-                    string line;
+                    string line = reader.ReadLine(); // read the first line as score
+                    int score = int.Parse(line); // parse the score
+                    Program._score = score; // set the score in the program
+
                     while ((line = reader.ReadLine()) != null)
                     {
                         string[] fields = line.Split(',');
-                        string name = fields[0];
-                        string description = fields[1];
-                        int points = int.Parse(fields[2]);
-                        string completed = fields[3];
-                        string count = fields[4];
-                        int bonus = int.Parse(fields[5]);
 
-                        Program goal = new Program()
+                        if (fields.Length == 5)
                         {
-                            _name = name,
-                            _description = description,
-                            _points = points,
-                            _completed = completed,
-                            _count = count,
-                            _bonus = bonus
-                        };
+                            // SimpleGoal
+                            
+                            string _goaltype = fields[0];
+                            string _completed = fields[1];
+                            string _name = fields[2];
+                            string _description = fields[3];
+                            int _points = int.Parse(fields[4]);
 
-                        _goals.Add(goal);
+                            SimpleGoal goal = new SimpleGoal();
+                            goal._goaltype = _goaltype;
+                            goal._completed = _completed;
+                            goal._name = _name;
+                            goal._description = _description;
+                            goal._points = _points;
+
+                            Program._goals.Add(goal);
+                        }
+                        else if (fields.Length == 4)
+                        {
+                            // EternalGoal
+                            string _goaltype = fields[0];
+                            string _name = fields[1];
+                            string _description = fields[2];
+                            int _points = int.Parse(fields[3]);
+
+                            EternalGoal goal = new EternalGoal();
+                            goal._goaltype = _goaltype;
+                            goal._name = _name;
+                            goal._description = _description;
+                            goal._points = _points;
+
+                            Program._goals.Add(goal);
+                        }
+                        else if (fields.Length == 7)
+                        {
+                            // ChecklistGoal
+                            string _goaltype = fields[0];
+                            string _completed = fields[1];
+                            string _count = fields[2];
+                            string _name = fields[3];
+                            string _description = fields[4];
+                            int _points = int.Parse(fields[5]);
+                            int _bonus = int.Parse(fields[6]);
+
+                            ChecklistGoal goal = new ChecklistGoal();
+                            goal._goaltype = _goaltype;
+                            goal._completed = _completed;
+                            goal._count = _count;
+                            goal._name = _name;
+                            goal._description = _description;
+                            goal._points = _points;
+                            goal._bonus = _bonus;
+
+                            Program._goals.Add(goal);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid format in goal file.");
+                        }
                     }
                 }
 
@@ -168,24 +264,30 @@ public static void RecordEvent()
                 Console.WriteLine("Error loading goals: " + ex.Message);
             }
         }
-        public static void GoalStart()
+        public void GoalStart()
         {
-            Console.WriteLine("What is the name of your Simple Goal?");
-            string _name = Console.ReadLine();
-    
-
+            Program program = new Program();
+            Console.WriteLine("What is the name of your Goal?");
+            _name = Console.ReadLine();
+                    
             Console.WriteLine("What is a short description of it?");
-            string _description = Console.ReadLine();
+            _description = Console.ReadLine();
 
-            Console.WriteLine("What is the amount of points associated with this goal?");
-            int _points;
-            if (!int.TryParse(Console.ReadLine(), out _points))
+            Console.WriteLine("What are the amount of points associated with this goal?");
+            int points;
+            if (!int.TryParse(Console.ReadLine(), out points))
             {
                 Console.WriteLine("Invalid point value. Please enter a valid number.");
                 return;
             }
+            _points = points;
         }
-        public static void Main(string[] args)
+
+        public virtual void AddToGoalsList()
+        {
+            _goals.Add(this);
+        }
+        static void Main(string[] args)
         {
             Program program = new Program();
             
@@ -207,11 +309,9 @@ public static void RecordEvent()
                 {
                     case "1":
                         Program prog = new Program();
-                        program.CreateGoal();
+                        CreateGoal();
                         break;
                     case "2":
-                        Console.WriteLine("Enter goal name:");
-                        string goalName = Console.ReadLine();
                         RecordEvent();
                         break;
                     case "3":
