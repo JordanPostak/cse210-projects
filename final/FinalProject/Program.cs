@@ -4,28 +4,28 @@ using System.IO;
 
 namespace InspireStone
 {
-    class Program
+    public class Program 
     {
         // Attributes
-        protected List<string> typeList = new List<string>() { "Pearl", "Task", "Mission", "Habit" };
-        protected List<string> positiveList = new List<string>() {};
-        protected List<string> feelList = new List<string>() { "Joy", "Love", "Gratitude", "Peace", "Hope", "Excitement", "Happiness", "Satisfaction", "Contentment" };
-        protected int luminosity = 0;
-        protected List<string> inspireList = new List<string>();
-        protected string select = "";
-        protected int step = 0;
-        protected string inspire = "";
-        protected string name = "";
-        protected string feel = "";
-        protected string type = "";
-        protected string script = "";
-        protected string word = "";
-        protected string plan = "";
-        protected string link = "";
-        protected string act = "";
-        protected string review = "";
-        protected string record = "";
-        protected int index = -1;
+        protected List<string> _typeList = new List<string>() { "Pearl", "Task", "Mission", "Habit" };
+        protected List<string> _positiveList = new List<string>() {};
+        protected List<string> _feelList = new List<string>() { "Joy", "Love", "Gratitude", "Peace", "Hope", "Excitement", "Happiness", "Satisfaction", "Contentment" };
+        protected int _luminosity = 0;
+        protected List<string> _inspireList = new List<string>();
+        protected string _select = "";
+        protected int _step = 0;
+        protected string _inspire = "";
+        protected string _name = "";
+        protected string _feel = "";
+        protected string _type = "";
+        protected string _script = "";
+        protected string _word = "";
+        protected string _plan = "";
+        protected string _link = "";
+        protected string _act = "";
+        protected string _review = "";
+        protected string _record = "";
+        protected int _index = -1;
 
         // Behaviors
         static void Main(string[] args)
@@ -37,7 +37,7 @@ namespace InspireStone
             program.InspireList();
 
             // Display luminosity score
-            Console.WriteLine($"Your luminosity score is: {program.luminosity}");
+            Console.WriteLine($"Your luminosity score is: {program._luminosity}");
 
             // Main menu
             bool quit = false;
@@ -100,7 +100,7 @@ namespace InspireStone
                         program.ViewJournal();
                         break;
                     case "10":
-                        program.SaveToIndex();
+                        program.SaveInspireList();
                         quit = true;
                         break;
                     default:
@@ -110,7 +110,21 @@ namespace InspireStone
             }
         }
 
-        
+        protected void SaveInspireList()
+        {
+            // Open file for writing
+            using (StreamWriter file = new StreamWriter("inspirelist.txt"))
+            {
+                // Write luminosity to the first line of the file
+                file.WriteLine(_luminosity);
+
+                // Write each item in inspireList to a new line in the file
+                foreach (string item in _inspireList)
+                {
+                    file.WriteLine(item);
+                }
+            }
+        }
         protected virtual void AddInspire() //(overridden by some child classes)
         {
             //Adds an inspiration to the inspiration list.
@@ -126,13 +140,13 @@ namespace InspireStone
                 // Add the first line to luminosity int
                 if (Int32.TryParse(lines[0], out int lum))
                 {
-                    luminosity = lum;
+                    _luminosity = lum;
                 }
                 
                 // Add the rest of the lines to _inspireList
                 for (int i = 1; i < lines.Length; i++)
                 {
-                    inspireList.Add(lines[i]);
+                    _inspireList.Add(lines[i]);
                 }
             }
         }
@@ -141,9 +155,9 @@ namespace InspireStone
         protected virtual void InspireSelect()
         {
             Console.WriteLine("\nSelect an inspiration:");
-            for (int i = 0; i < inspireList.Count; i++)
+            for (int i = 0; i < _inspireList.Count; i++)
             {
-                string[] parts = inspireList[i].Split(new string[] { "///" }, StringSplitOptions.None);
+                string[] parts = _inspireList[i].Split(new string[] { "///" }, StringSplitOptions.None);
                 Console.WriteLine($"{i + 1}. {parts[2]}");
             }
 
@@ -152,14 +166,14 @@ namespace InspireStone
             if (Int32.TryParse(input, out selection))
             {
                 // Check if selection is within range
-                if (selection > 0 && selection <= inspireList.Count)
+                if (selection > 0 && selection <= _inspireList.Count)
                 {
-                    index = selection - 1;
-                    select = inspireList[index];
-                    step = 1;
-                    Console.WriteLine($"Selected inspiration: {select}");
+                    _index = selection - 1;
+                    _select = _inspireList[_index];
+                    _step = 1;
+                    Console.WriteLine($"Selected inspiration: {_select}");
                     // Split selected inspiration by "///" and print each part on a new line
-                    string[] parts = select.Split(new string[] { "///" }, StringSplitOptions.None);
+                    string[] parts = _select.Split(new string[] { "///" }, StringSplitOptions.None);
                     for (int i = 0; i < parts.Length; i++)
                     {
                         Console.WriteLine(parts[i]);
@@ -209,14 +223,19 @@ namespace InspireStone
             }
         }
 
+        protected void GetIndex()
+        {
+            // gets index of _select in _inspireList and sets it to _index.
+        }
+
         // Save selected inspiration to index file
         protected void SaveToIndex()
         {
-            if (index != -1)
+            if (_index != -1)
             {
                 using (StreamWriter writer = File.AppendText("index.txt"))
                 {
-                    writer.WriteLine(select);
+                    writer.WriteLine(_select);
                 }
                 Console.WriteLine("Selected inspiration saved to index.");
             }
