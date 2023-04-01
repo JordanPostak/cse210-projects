@@ -8,73 +8,62 @@ namespace InspireStone
     {
         private int selectIndex = 0;
 
+        static public void LoadPositives()
+        {
+            // Read the content of the positivelist.txt file
+            string filePath = "positivelist.txt";
+            if (File.Exists(filePath))
+            {
+                string[] lines = File.ReadAllLines(filePath);
+                // Clear the old positive list before adding new items
+                _positiveList.Clear();
+                foreach (string line in lines)
+                {
+                    // Add each line to the _positiveList variable
+                    _positiveList.Add(line);
+                }
+            }
+        }
+
         public void ListPositive()
         {
-            Console.Write("Name something positive in your life: ");
+            LoadPositives();
+            Console.Clear();
+            TypingEffect("Name something positive in your life:");
+            Console.WriteLine();
+            BlinkIndicator();
             string positiveItem = Console.ReadLine();
-
-            Console.WriteLine("What word most describes the way it makes you feel:");
-            for (int i = 0; i < _feelList.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {_feelList[i]}");
-            }
-            Console.WriteLine($"{_feelList.Count + 1}. Add new feeling");
-
-            int choice;
-            do
-            {
-                Console.Write("Please select an option: ");
-            } while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > _feelList.Count + 1);
-
-            string feeling;
-            if (choice == _feelList.Count + 1)
-            {
-                Console.Write("Enter new feeling: ");
-                feeling = Console.ReadLine();
-                _feelList.Add(feeling);
-                SaveFeelings();
-            }
-            else
-            {
-                feeling = _feelList[choice - 1];
-            }
+            Feelings.LoadFeelings();
+            string feeling = Feelings.GetFeel(_feelList);
 
             // Add the positive item to _positiveList
             _positiveList.Add($"{positiveItem}///{feeling}");
 
-            // Increment luminosity by 1
-            _luminosity++;
+            Inspire.AddLuminosity();
 
             // Save the positive items
             SavePositives();
 
-            Console.WriteLine("Positive item added successfully.");
+            Console.Clear();
+            TypingEffect("Positive item added successfully.");
         }
 
         public void SavePositives()
         {
-            using (StreamWriter sw = new StreamWriter("positivelist.txt"))
+            using (StreamWriter sw = new StreamWriter("positivelist.txt", false))
             {
                 foreach (string item in _positiveList)
                 {
                     sw.WriteLine(item);
                 }
             }
-            Console.WriteLine("Positive items saved to positivelist.txt.");
         }
-        public void SaveFeelings()
-        {
-            using (StreamWriter writer = new StreamWriter("feelings.txt"))
-            {
-                foreach (string feeling in _feelList)
-                {
-                    writer.WriteLine(feeling);
-                }
-            }
-        }
+       
         public void EditPositive()
         {
-            Console.WriteLine("\nSelect a positive item to edit:");
+            LoadPositives();
+            Console.Clear();
+            TypingEffect("\nSelect a positive item to edit:");
             for (int i = 0; i < _positiveList.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {_positiveList[i]}");
@@ -88,17 +77,18 @@ namespace InspireStone
                 if (selection > 0 && selection <= _positiveList.Count)
                 {
                     selectIndex = selection - 1;
-                    Console.WriteLine($"Editing item: {_positiveList[selectIndex]}");
+                    Console.Clear();
+                    TypingEffect($"Editing item: {_positiveList[selectIndex]}");
 
-                    Console.WriteLine("Enter new text for the item:");
+                    TypingEffect("Enter new text for the item:");
                     string newText = Console.ReadLine();
 
-                    Console.WriteLine("\nSelect an associated feeling:");
+                    TypingEffect("\nSelect an associated feeling:");
                     for (int i = 0; i < _feelList.Count; i++)
                     {
                         Console.WriteLine($"{i + 1}. {_feelList[i]}");
                     }
-                    Console.WriteLine($"{_feelList.Count + 1}. Add new feeling");
+                    TypingEffect($"{_feelList.Count + 1}. Add new feeling");
 
                     input = Console.ReadLine();
                     if (Int32.TryParse(input, out selection))
@@ -111,11 +101,7 @@ namespace InspireStone
                         else if (selection == _feelList.Count + 1)
                         {
                             // Add new feeling
-                            Console.WriteLine("Enter new feeling:");
-                            string newFeeling = Console.ReadLine();
-                            _feelList.Add(newFeeling);
-                            SaveFeelings();
-                            _positiveList[selectIndex] = $"{newText}///{newFeeling}";
+                            string newFeeling = Feelings.AddFeel(_feelList);
                         }
                         else
                         {
@@ -141,8 +127,56 @@ namespace InspireStone
             SavePositives();
         }
 
+        protected override void Menu()
+        {
+
+            while (true)
+            {
+                Console.WriteLine();
+                Inspire.DisplayLuminosity();
+                TypingEffect("Select an option:");
+                Console.WriteLine();
+                Console.WriteLine("1. List Positive Things in Life");
+                Console.WriteLine("2. Edit Positive List");
+                Console.WriteLine("3. Delete from Positive List");
+                Console.WriteLine("4. Return to Main Menu");
+                Console.WriteLine();
+                BlinkIndicator();
+
+                string input = Console.ReadLine();
+                int selection;
+                if (Int32.TryParse(input, out selection))
+                {
+                    switch (selection)
+                    {
+                        case 1:
+                            Console.Clear();
+                            ListPositive();
+                            break;
+                        case 2:
+                            Console.Clear();
+                            EditPositive();
+                            break;
+                        case 3:
+                            Console.Clear();
+                            DeletePositive();
+                            break;
+                        case 4:
+                            return;
+                        default:
+                            Console.WriteLine("Invalid input, please try again.");
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input, please try again.");
+                }
+            } 
+        }
         public void DeletePositive()
         {
+            LoadPositives();
             Console.WriteLine("\nSelect a positive item to delete:");
 
             for (int i = 0; i < _positiveList.Count; i++)
@@ -184,46 +218,7 @@ namespace InspireStone
 
         public void Run()
         {
-            {
-                // Display luminosity score
-                Console.WriteLine($"Your luminosity score is: {_luminosity}");
-
-                while (true)
-                {
-                    Console.WriteLine("Select an option:");
-                    Console.WriteLine("1. List Positive Things in Life");
-                    Console.WriteLine("2. Edit Positive List");
-                    Console.WriteLine("3. Delete from Positive List");
-                    Console.WriteLine("4. Return to Main Menu");
-
-                    string input = Console.ReadLine();
-                    int selection;
-                    if (Int32.TryParse(input, out selection))
-                    {
-                        switch (selection)
-                        {
-                            case 1:
-                                ListPositive();
-                                break;
-                            case 2:
-                                EditPositive();
-                                break;
-                            case 3:
-                                DeletePositive();
-                                break;
-                            case 4:
-                                return;
-                            default:
-                                Console.WriteLine("Invalid input, please try again.");
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid input, please try again.");
-                    }
-                }
-            } 
+            Menu();
         }
     }
 }

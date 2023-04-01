@@ -1,106 +1,156 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 
 namespace InspireStone
 {
     public class Program 
     {
         // Attributes
-        protected List<string> _typeList = new List<string>() { "Pearl", "Task", "Mission", "Habit" };
-        protected List<string> _positiveList = new List<string>() {};
-        protected List<string> _feelList = new List<string>() { "Joy", "Love", "Gratitude", "Peace", "Hope", "Excitement", "Happiness", "Satisfaction", "Contentment" };
-        protected int _luminosity = 0;
-        protected List<string> _inspireList = new List<string>();
-        protected string _select = "";
-        protected int _step = 0;
-        protected string _inspire = "";
-        protected string _name = "";
-        protected string _feel = "";
-        protected string _type = "";
-        protected string _script = "";
-        protected string _word = "";
-        protected string _plan = "";
-        protected string _link = "";
-        protected string _act = "";
-        protected string _review = "";
-        protected string _record = "";
-        protected int _index = -1;
+        static protected List<string> _typeList = new List<string>() { "Pearl", "Task", "Mission", "Habit" };
+        static protected List<string> _positiveList = new List<string>();
+        static protected List<string> _feelList = new List<string>();
+        static protected int _luminosity = 0;
+        static protected List<string> _inspireList = new List<string>();
+        static protected string _select = "";
+        static protected int _step = 0;
+        static protected string _inspire = "";
+        static protected string _name = "";
+        static protected string _feel = "";
+        static protected string _type = "";
+        static protected string _script = "";
+        static protected string _word = "";
+        static protected string _plan = "";
+        static protected string _link = "";
+        static protected string _act = "";
+        static protected string _review = "";
+        static protected string _record = "";
+        static protected int _index = -1;
 
         // Behaviors
         static void Main(string[] args)
         {
+           
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Clear();
             Program program = new Program();
-            Console.WriteLine("Welcome to Inspire Stone!");
+            Console.WriteLine();
+            Console.WriteLine();
+            TypingEffect("Welcome to Inspire Stone!");
+            Console.WriteLine();
 
+            Feelings.LoadFeelings();
+            Listen.LoadPositives();
             // Load inspirations from file
-            program.InspireList();
+            Inspire.InspireList();
+            program.Menu();
+        }
 
-            // Display luminosity score
-            Console.WriteLine($"Your luminosity score is: {program._luminosity}");
+        protected virtual void Menu()
+        {
 
             // Main menu
             bool quit = false;
             while (!quit)
             {
-                Console.WriteLine("\nSelect an option:");
-                Console.WriteLine("1. Browse inspirations");
+                Inspire.DisplayLuminosity();
+                TypingEffect("Please Select from the choices below:");
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("1. Brows Inspirations");
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("2. Listen");
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("3. Receive");
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("4. Ponder");
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
                 Console.WriteLine("5. Plan");
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("6. Act");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 Console.WriteLine("7. Review");
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("8. Record");
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("9. Journal");
                 Console.WriteLine("10. Quit");
+                Console.WriteLine();
+                BlinkIndicator();
+
 
                 string input = Console.ReadLine();
                 switch (input)
                 {
                     case "1":
-                        program.InspireSelect();
+                        InspireSelect();
+                        Console.Clear();
                         break;
                     case "2":
-                        Console.WriteLine("Get ready to Listen...");
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        TypingEffect("Get ready to Listen...");
                         Listen listen = new Listen();
                         listen.Run();
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         break;
                     case "3":
-                        Console.WriteLine("Get ready to Receive...");
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        TypingEffect("Get ready to Receive...");
                         Recieve recieve = new Recieve();
                         recieve.Run();
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         break;
                     case "4":
-                        Console.WriteLine("Get ready to Ponder...");
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        TypingEffect("Get ready to Ponder...");
                         Ponder ponder = new Ponder();
                         ponder.Run();
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         break;
                     case "5":
-                        Console.WriteLine("Get ready to Plan...");
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        TypingEffect("Get ready to Plan...");
                         Plan plan = new Plan();
                         plan.Run();
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         break;
                     case "6":
-                        Console.WriteLine("Get ready to Act...");
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        TypingEffect("Get ready to Act...");
                         Act act = new Act();
                         act.Run();
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         break;
                     case "7":
-                        Console.WriteLine("Get ready to Review...");
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                        TypingEffect("Get ready to Review...");
                         Review review = new Review();
                         review.Run();
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         break;
                     case "8":
-                        Console.WriteLine("Get ready to Record...");
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.White;TypingEffect("Get ready to Record...");
                         Record record = new Record();
                         record.Run();
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         break;
                     case "9":
-                        program.ViewJournal();
+                        Console.Clear();
+                        Journal.ViewJournal();
                         break;
                     case "10":
-                        program.SaveInspireList();
+                        Inspire.SaveInspireList();
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Cyan;TypingEffect("Have a nice day...");
                         quit = true;
                         break;
                     default:
@@ -109,61 +159,39 @@ namespace InspireStone
                 }
             }
         }
-
-        protected void SaveInspireList()
+        
+        protected virtual void AddInspire()
         {
-            // Open file for writing
-            using (StreamWriter file = new StreamWriter("inspirelist.txt"))
+            string newInspiration = "";
+            // Check if the new inspiration is not already in the list
+            if (!_inspireList.Contains(newInspiration))
             {
-                // Write luminosity to the first line of the file
-                file.WriteLine(_luminosity);
-
-                // Write each item in inspireList to a new line in the file
-                foreach (string item in _inspireList)
-                {
-                    file.WriteLine(item);
-                }
+                // Add the new inspiration to the list
+                _inspireList.Add(newInspiration);
+                Console.WriteLine($"Added '{newInspiration}' to the inspiration list.");
             }
-        }
-        protected virtual void AddInspire() //(overridden by some child classes)
-        {
-            //Adds an inspiration to the inspiration list.
-        }
-
-        // Load luminosity score and inspirations from inspirelist.txt and sets them to luminosity and _inspireList.
-        protected void InspireList()
-        {
-            if (File.Exists("inspirelist.txt"))
+            else
             {
-                string[] lines = File.ReadAllLines("inspireList.txt");
-                
-                // Add the first line to luminosity int
-                if (Int32.TryParse(lines[0], out int lum))
-                {
-                    _luminosity = lum;
-                }
-                
-                // Add the rest of the lines to _inspireList
-                for (int i = 1; i < lines.Length; i++)
-                {
-                    _inspireList.Add(lines[i]);
-                }
+                Console.WriteLine($"'{newInspiration}' is already in the inspiration list.");
             }
         }
 
         // Prompt user to select an inspiration
         protected virtual void InspireSelect()
         {
-            Console.WriteLine("\nSelect an inspiration:");
+            Console.Clear();
+            TypingEffect("\nSelect an inspiration:");
+            Console.WriteLine();
             for (int i = 0; i < _inspireList.Count; i++)
             {
                 string[] parts = _inspireList[i].Split(new string[] { "///" }, StringSplitOptions.None);
                 Console.WriteLine($"{i + 1}. {parts[2]}");
             }
+            Console.WriteLine();
+            BlinkIndicator();
 
             string input = Console.ReadLine();
-            int selection;
-            if (Int32.TryParse(input, out selection))
+            if (Int32.TryParse(input, out int selection))
             {
                 // Check if selection is within range
                 if (selection > 0 && selection <= _inspireList.Count)
@@ -171,13 +199,8 @@ namespace InspireStone
                     _index = selection - 1;
                     _select = _inspireList[_index];
                     _step = 1;
-                    Console.WriteLine($"Selected inspiration: {_select}");
-                    // Split selected inspiration by "///" and print each part on a new line
-                    string[] parts = _select.Split(new string[] { "///" }, StringSplitOptions.None);
-                    for (int i = 0; i < parts.Length; i++)
-                    {
-                        Console.WriteLine(parts[i]);
-                    }
+                    Inspire.InspireSeperate();
+                    Inspire.DisplayInspiration();
                 }
                 else
                 {
@@ -188,56 +211,52 @@ namespace InspireStone
             {
                 Console.WriteLine("Invalid input, please try again.");
             }
+
+            Console.WriteLine("\nPress enter to return to the main menu.");
+            Console.ReadLine();
+            Console.Clear();
         }
 
-        // InspireSeperate(): takes _select and separates it by the “///” and separates them into the different parts variables; _step, _inspire, _name, _feel, _type, _script, _word, _plan, _link, _act, _review.
-        protected void InspireSeperate() //(overridden by some child classes)
+        static public void StepUpgrade()
         {
-            //Adds an inspiration to the inspiration list.
-        }
+            // adds one to _step
+            _step++;
+        } 
 
-        // Display journal entries
-        protected void ViewJournal()
+        protected static void TypingEffect(string message)
         {
-            Console.WriteLine("\nJournal Entries:");
-            if (File.Exists("journal.txt"))
+            for (int i = 0; i < message.Length; i++)
             {
-                string[] entries = File.ReadAllLines("journal.txt");
-                foreach (string entry in entries)
+                Console.Write(message[i]);
+                Thread.Sleep(50);
+            }
+            Console.WriteLine();
+        }
+
+        protected static void BlinkIndicator()
+        {
+            string message = ">>>";
+            bool visible = true;
+
+            while (!Console.KeyAvailable)
+            {
+                if (visible)
                 {
-                    Console.WriteLine(entry);
+                    for (int i = 0; i < message.Length; i++)
+                    {
+                        Console.Write(message[i]);
+                        Thread.Sleep(250);
+                    }
                 }
-            }
-            else
-            {
-                Console.WriteLine("No journal entries found.");
-            }
-        }
-
-        // Save user input to journal file
-        protected void SaveToJournal(string entry)
-        {
-            using (StreamWriter writer = File.AppendText("journal.txt"))
-            {
-                writer.WriteLine(entry);
-            }
-        }
-
-        protected void GetIndex()
-        {
-            // gets index of _select in _inspireList and sets it to _index.
-        }
-
-        // Save selected inspiration to index file
-        protected void SaveToIndex()
-        {
-            if (_index != -1)
-            {
-                using (StreamWriter writer = File.AppendText("index.txt"))
+                else
                 {
-                    writer.WriteLine(_select);
+                    Console.SetCursorPosition(0, Console.CursorTop);
+                    Console.Write(new string(' ', message.Length));
+                    Console.SetCursorPosition(0, Console.CursorTop);
+        
                 }
-                Console.WriteLine("Selected inspiration saved to index.");
+                visible = !visible;
+                Thread.Sleep(250);
             }
         }
     }
