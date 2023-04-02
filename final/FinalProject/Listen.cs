@@ -8,6 +8,7 @@ namespace InspireStone
     {
         private int selectIndex = 0;
 
+        // Load the list of positive items from the positivelist.txt file and add them to the _positiveList variable. If the file does not exist, no action is taken. This method is static, meaning it can be called without an instance of the Listen class.
         static public void LoadPositives()
         {
             // Read the content of the positivelist.txt file
@@ -25,6 +26,7 @@ namespace InspireStone
             }
         }
 
+        // Display a prompt to the user to enter a positive thing in their life, and wait for user input. Then prompt the user to select an associated feeling from a list, and add the positive item with the selected feeling to the _positiveList variable. Finally, save the updated list to the positivelist.txt file.
         public void ListPositive()
         {
             LoadPositives();
@@ -49,6 +51,7 @@ namespace InspireStone
             Thread.Sleep(2000);
         }
 
+        // Write the content of the _positiveList variable to the positivelist.txt file. If the file does not exist, it is created. If the file exists, its content is overwritten with the content of the _positiveList variable.
         public void SavePositives()
         {
             using (StreamWriter sw = new StreamWriter("positivelist.txt", false))
@@ -60,6 +63,7 @@ namespace InspireStone
             }
         }
        
+       // Display a list of positive items from the _positiveList variable and prompt the user to select an item to edit. Then prompt the user to enter new text for the selected item, and select an associated feeling from a list or add a new feeling. Finally, update the selected item in the _positiveList variable with the new text and feeling, and save the updated list to the positivelist.txt file.
         public void EditPositive()
         {
             LoadPositives();
@@ -128,6 +132,7 @@ namespace InspireStone
             SavePositives();
         }
 
+        // This method displays the program's main menu using a print statement and obtains user input using the input function. User input is validated for validity, and the corresponding method is called to perform the selected action. The menu is displayed continuously using a while loop until the user chooses to exit.
         protected override void Menu()
         {
 
@@ -175,6 +180,8 @@ namespace InspireStone
                 }
             } 
         }
+
+        // Display a list of positive items from the _positiveList variable and prompt the user to select an item to delete. Then remove the selected item from the _positiveList variable and save the updated list to the positivelist.txt file.
         public void DeletePositive()
         {
             LoadPositives();

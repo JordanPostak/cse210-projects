@@ -6,6 +6,8 @@ namespace InspireStone
 {
     public class Inspire: Program
     {
+
+        // This method saves the current list of inspirations in the _inspireList variable to a file named inspirelist.txt. It starts by opening a StreamWriter object to write to the file. Then, it writes the current luminosity value in the first line of the file and each item in _inspireList to a new line in the file.
         static public void SaveInspireList()
         {
             // Open file for writing
@@ -22,8 +24,9 @@ namespace InspireStone
             }
         }
 
+        // This method loads the luminosity score and inspirations from inspirelist.txt and sets them to _luminosity and _inspireList, respectively. It checks if inspirelist.txt exists and reads all its lines. Then, it adds the first line to _luminosity and the rest of the lines to _inspireList.
         static public void InspireList()
-        // Load luminosity score and inspirations from inspirelist.txt and sets them to luminosity and _inspireList.
+        
         {
             if (File.Exists("inspirelist.txt"))
             {
@@ -43,6 +46,7 @@ namespace InspireStone
             }
         }
 
+        // This method saves the currently selected inspiration to its corresponding index in _inspireList. It first gets the index of the currently selected inspiration in _inspireList and sets it to _index. Then, it concatenates all the parts of the inspiration, separated by "///", into a single string and replaces any "//////" with "///". Finally, it saves the selected inspiration to the index in _inspireList.
         static public void SaveInspiration()
         {
             // gets index of _select in _inspireList and sets it to _index.
@@ -58,8 +62,8 @@ namespace InspireStone
             }
         }
 
+        // This method takes the currently selected inspiration in _select and separates it by "///". It then sets each part to its corresponding variable in the order _step, _inspire, _name, _feel, _type, _script, _word, _plan, _link, _act, _review. If there are not enough parts, it does not set the corresponding variables.
         static public void InspireSeperate()
-        // InspireSeperate(): takes _select and separates it by the “///” and separates them into the different parts variables; _step, _inspire, _name, _feel, _type, _script, _word, _plan, _link, _act, _review.
         {
             if (Program._select != null)
             {
@@ -78,6 +82,7 @@ namespace InspireStone
             }
         }
 
+        // This method increments the luminosity score in _luminosity by 1 and displays a message to the console. It simply increments _luminosity by 1 and uses the Console.WriteLine() and Thread.Sleep() methods to display a message for two seconds.
         static public void AddLuminosity()
         {
             // Increment luminosity by 1
@@ -86,11 +91,13 @@ namespace InspireStone
             Thread.Sleep(2000);
         }
 
+        // This method displays the current luminosity score in _luminosity to the console. It uses the TypingEffect() method to display a message that shows the current luminosity score.
         static public void DisplayLuminosity()
         {
             TypingEffect($"Your luminosity score is {Program._luminosity}");
         }
 
+        // This method displays the currently selected inspiration to the console in a nice, easy-to-read format. It calls InspireSeperate() to separate the currently selected inspiration into its corresponding parts, then displays each part in a specific order, along with a message indicating what each part represents. It also uses the TypingEffect() method to create a typing effect for each message.
         static public void DisplayInspiration()
         {
             Console.Clear();
@@ -188,7 +195,7 @@ namespace InspireStone
             // (Only show if _link is not Undefined) Child of: (_link)
             if (_link != "Undefined")
             {
-                TypingEffect("Child of:");
+                TypingEffect("Related Inspirations:");
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
                 TypingEffect($"{_link}");
                 Console.ForegroundColor = ConsoleColor.Cyan;

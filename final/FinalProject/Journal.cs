@@ -7,6 +7,8 @@ using InspireStone;
     {
         static string _currentDate = DateTime.Now.ToString("yyyy-MM-dd");
         // Display journal entries
+
+        // This method displays all the journal entries by reading the "journal.txt" file and printing its contents on the console. If the file does not exist or is empty, it displays a message indicating that there are no journal entries. It then waits for the user to press enter to return to the main menu.
         static public void ViewJournal()
         {
             Console.WriteLine("\nJournal Entries:");
@@ -27,6 +29,7 @@ using InspireStone;
             Console.ReadLine();
         }
 
+        // This method is responsible for creating and writing a new journal entry. It calls the InspireSeperate method from the InspireStone namespace to get input from the user. It then creates a StreamWriter object to write the new entry to the "journal.txt" file. The method writes the inspiration name, type, text, associated feeling, scriptural support, prophetic support, plan of action, sub-type, action, and review (if applicable) to the file.
         static public void SaveInspaDataToJournal()
         {
             // calls InspireSeperate();
@@ -98,7 +101,7 @@ using InspireStone;
             }
         }
 
-        // Save user input to journal file
+        // This method is called when the user chooses to add their own entry to the journal. It takes a string parameter "entry" and appends it to the end of the "journal.txt" file along with a header indicating that it is a journal entry.
         static public void SaveToJournal(string entry)
         {
             using (StreamWriter writer = File.AppendText("journal.txt"))

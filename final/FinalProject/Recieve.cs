@@ -6,7 +6,7 @@ namespace InspireStone
 {
     class Recieve : Program
     {
-        
+        // The AddInspire method prompts the user for inspiration text and name, and also allows the user to select associated feelings from a list. It then creates a new inspiration object and adds it to the _inspireList. Finally, it sets the _select variable to the newly added inspiration and calls the AddLuminosity and SaveInspireList methods.
         protected override void AddInspire()
         {
             // Prompts user for inspiration text and sets it to “_inspire”.
@@ -66,6 +66,7 @@ namespace InspireStone
             Inspire.SaveInspireList();
         }
 
+        // The Menu method displays the current luminosity score and provides the user with a menu to either add a new inspiration or return to the main menu. It continuously prompts the user for input until a valid selection is made. When the user selects the "Add an inspiration" option, the AddInspire method is called.
         protected override void Menu()
         {
         
@@ -107,6 +108,7 @@ namespace InspireStone
             } 
         }
 
+        // Run method calls the Menu method.
         public void Run()
         {
             Menu();

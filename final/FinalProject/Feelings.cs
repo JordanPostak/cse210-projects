@@ -5,6 +5,7 @@ using InspireStone;
 
     public class Feelings: Program
     { 
+        // This method loads the feelings from the "feelings.txt" file into the program by reading all the lines from the file and creating a new List<string> to store them in. If the file is not found, it prints an error message. If any other exception occurs, it prints an error message that includes the exception's message.
         static public void LoadFeelings()
         {
             try
@@ -23,6 +24,7 @@ using InspireStone;
             }
         }
 
+        // This method saves the provided List<string> of feelings to the "feelings.txt" file by writing each feeling as a new line. It uses a StreamWriter object to write to the file.
         static public void SaveFeelings(List<string>feel)
         {
             using (StreamWriter writer = new StreamWriter("feelings.txt"))
@@ -34,6 +36,7 @@ using InspireStone;
             }
         }
 
+        // This method displays a list of feelings to the user and prompts them to choose one by entering a number. If the user selects the option to add a new feeling, it calls the AddFeel method to add the new feeling to the list and save it to the "feelings.txt" file. If the user selects an existing feeling, it returns that feeling as a string.
         static public string GetFeel(List<string> feelList)
         {
             Console.Clear();
@@ -67,6 +70,7 @@ using InspireStone;
             return feeling;
         }
 
+        // This method prompts the user to enter a new feeling, checks if the feeling already exists in the provided List<string>, and adds it to the list if it doesn't already exist. It then prints a success message, saves the updated list to the "feelings.txt" file, and returns the new feeling as a string.
         static public string AddFeel(List<string> feel)
         {
             string newFeeling;

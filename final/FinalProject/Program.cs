@@ -28,7 +28,7 @@ namespace InspireStone
         static protected string _record = "";
         static protected int _index = -1;
 
-        // Behaviors
+        // The Main method initializes the program by setting the console color, loading feelings and positive words, loading inspirations from a file, and calling the Menu method.
         static void Main(string[] args)
         {
            
@@ -48,6 +48,7 @@ namespace InspireStone
             program.Menu();
         }
 
+        // The Menu method displays the main menu options and waits for the user to select an option. Based on the user's input, it either calls one of the subprograms (Listen, Receive, Ponder, Plan, Act, Review, Record, or Journal), or saves the list of inspirations and quits the program. It uses a while loop to continue displaying the main menu until the user selects the option to quit.
         protected virtual void Menu()
         {
 
@@ -92,7 +93,7 @@ namespace InspireStone
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Red;
                         TypingEffect("Get ready to Listen...");
-                        Thread.Sleep(2000);
+                        ShowSpinner();
                         Listen listen = new Listen();
                         listen.Run();
                         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -101,7 +102,7 @@ namespace InspireStone
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         TypingEffect("Get ready to Receive...");
-                        Thread.Sleep(2000);
+                        ShowSpinner();
                         Recieve recieve = new Recieve();
                         recieve.Run();
                         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -110,7 +111,7 @@ namespace InspireStone
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         TypingEffect("Get ready to Ponder...");
-                        Thread.Sleep(2000);
+                        ShowSpinner();
                         Ponder ponder = new Ponder();
                         ponder.Run();
                         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -119,7 +120,7 @@ namespace InspireStone
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                         TypingEffect("Get ready to Plan...");
-                        Thread.Sleep(2000);
+                        ShowSpinner();
                         Plan plan = new Plan();
                         plan.Run();
                         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -128,7 +129,7 @@ namespace InspireStone
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Blue;
                         TypingEffect("Get ready to Act...");
-                        Thread.Sleep(2000);
+                        ShowSpinner();
                         Act act = new Act();
                         act.Run();
                         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -137,7 +138,7 @@ namespace InspireStone
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.DarkMagenta;
                         TypingEffect("Get ready to Review...");
-                        Thread.Sleep(2000);
+                        ShowSpinner();
                         Review review = new Review();
                         review.Run();
                         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -145,7 +146,7 @@ namespace InspireStone
                     case "8":
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.White;TypingEffect("Get ready to Record...");
-                        Thread.Sleep(2000);
+                        ShowSpinner();
                         Record record = new Record();
                         record.Run();
                         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -167,6 +168,7 @@ namespace InspireStone
             }
         }
         
+        // This method adds a new inspiration to the inspiration list, if it is not already in the list. If the new inspiration is already in the list, it displays a message indicating so.
         protected virtual void AddInspire()
         {
             string newInspiration = "";
@@ -185,7 +187,7 @@ namespace InspireStone
             }
         }
 
-        // Prompt user to select an inspiration
+        // This method prompts the user to select an inspiration from the inspiration list. If there are no inspirations in the list, it displays a message indicating so and returns the user to the main menu. It also checks that the user's input is valid and within the range of available inspirations before setting the selected inspiration.
         protected virtual void InspireSelect()
         {
             Console.Clear();
@@ -236,12 +238,14 @@ namespace InspireStone
             Console.Clear();
         }
 
+        // This method increments the _step variable by one.
         static public void StepUpgrade()
         {
             // adds one to _step
             _step++;
         } 
 
+        // This method creates a typing effect by printing a string to the console character by character, with a delay between each character.
         protected static void TypingEffect(string message)
         {
             for (int i = 0; i < message.Length; i++)
@@ -252,6 +256,7 @@ namespace InspireStone
             Console.WriteLine();
         }
 
+        // This method creates a blinking indicator on the console by alternating between displaying and hiding the ">>>" string, until a key is pressed.
         protected static void BlinkIndicator()
         {
             string message = ">>>";
@@ -276,6 +281,21 @@ namespace InspireStone
                 }
                 visible = !visible;
                 Thread.Sleep(250);
+            }
+        }
+
+        // This method displays a spinner animation for 2 seconds using an array of spinner frames. It prints the frames to the console and uses a variable to track the current frame index, which increments and resets using the modulus operator. It pauses for 100 milliseconds between each frame using Thread.Sleep.
+        private static void ShowSpinner()
+        {
+            string[] spinners = new string[] { "/", "-", "\\", "|" };
+            int spinnerIndex = 0;
+
+            DateTime startTime = DateTime.Now;
+            while ((DateTime.Now - startTime).TotalSeconds < 2)
+            {
+                Console.Write($"\r{spinners[spinnerIndex]}");
+                spinnerIndex = (spinnerIndex + 1) % spinners.Length;
+                Thread.Sleep(100);
             }
         }
     }
