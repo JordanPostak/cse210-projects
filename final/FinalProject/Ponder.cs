@@ -29,10 +29,12 @@ namespace InspireStone
             if (!hasInspiration)
             {
                 Console.WriteLine("There are no inspirations to ponder.");
+                Thread.Sleep(2000);
                 return;
             }
 
-            TypingEffect("\nSelect an inspiration:");
+            TypingEffect("\nSelect an inspiration to ponder:");
+            Console.WriteLine();
             for (int i = 0; i < _inspireList.Count; i++)
             {
                 string[] parts = _inspireList[i].Split(new string[] { "///" }, StringSplitOptions.None);
@@ -42,11 +44,11 @@ namespace InspireStone
                     if (step == 3)
                     {
                         Console.WriteLine($"{i + 1}. {parts[2]}");
-                        Console.WriteLine();
-                        BlinkIndicator();
                     }
                 }
             }
+            Console.WriteLine();
+            BlinkIndicator();
 
             string input = Console.ReadLine();
             int selection;
@@ -66,6 +68,7 @@ namespace InspireStone
                             _select = _inspireList[_index];
                             Inspire.InspireSeperate();
                             TypingEffect($"Selected inspiration: {_name}");
+                            Thread.Sleep(2000);
                             isValidSelection = true;
                             break;
                         }
@@ -86,13 +89,13 @@ namespace InspireStone
         public void Type()
             // prompts user to choose the type from _typeList and sets it as _type.
             {
-                TypingEffect("Choose a type:");
+                TypingEffect("What type of Inspiration is it?:");
                 for (int i = 0; i < _typeList.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}. {_typeList[i]}");
-                    Console.WriteLine();
-                    BlinkIndicator();
                 }
+                Console.WriteLine();
+                BlinkIndicator();
 
                 string input = Console.ReadLine();
                 int selection;
@@ -103,6 +106,7 @@ namespace InspireStone
                     {
                         _type = _typeList[selection - 1];
                         TypingEffect($"Selected type: {_type}");
+                        
                     }
                     else
                     {
@@ -118,32 +122,44 @@ namespace InspireStone
         public void Script()
             // allows the user to copy and paste a scripture text and reference
             {
-                TypingEffect("Please enter the scripture text:");
+                TypingEffect("Copy and paste the text of a scripture which supports this inspiration:");
+                Console.WriteLine();
+                BlinkIndicator();
                 string text = Console.ReadLine();
 
-                TypingEffect("Please enter the scripture reference:");
+                TypingEffect("Enter the scripture reference:");
+                Console.WriteLine();
+                BlinkIndicator();
                 string reference = Console.ReadLine();
 
                 _script = $"{text} ({reference})";
                 TypingEffect($"Scripture linked: {_script}");
+                
             }
 
             public void Word()
             // allows the user to copy and paste a word from church authority text and reference
             {
-                TypingEffect("Please enter the quote or text from a Prophet, Apostle or other church authority:");
+                TypingEffect("Copy and paste a quote or text from a Prophet, Apostle or other church authority:");
+                Console.WriteLine();
+                BlinkIndicator();
                 string text = Console.ReadLine();
 
-                TypingEffect("Please enter the reference of the quote or text from a Prophet, Apostle or other church authority:");
+                TypingEffect("Enter the reference of the quote or text:");
+                Console.WriteLine();
+                BlinkIndicator();
                 string reference = Console.ReadLine();
 
                 _word = $"{text} ({reference})";
                 TypingEffect($"Words linked: {_word}");
+                
             }
 
         public void PonderInspiration()
         {
             InspireSelect();
+            Inspire.DisplayInspiration();
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Type();
             Script();
             Word();

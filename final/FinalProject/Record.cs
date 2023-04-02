@@ -29,11 +29,13 @@ namespace InspireStone
 
             if (!hasInspiration)
             {
-                Console.WriteLine("There are no inspirations to record.");
+                TypingEffect("There are no inspirations to record.");
                 return;
+                Thread.Sleep(2000);
             }
 
-            Console.WriteLine("\nSelect an inspiration:");
+            TypingEffect("\nSelect an inspiration:");
+            Console.WriteLine();
             for (int i = 0; i < _inspireList.Count; i++)
             {
                 string[] parts = _inspireList[i].Split(new string[] { "///" }, StringSplitOptions.None);
@@ -46,6 +48,8 @@ namespace InspireStone
                     }
                 }
             }
+            Console.WriteLine();
+            BlinkIndicator();
 
             string input = Console.ReadLine();
             int selection;
@@ -63,7 +67,8 @@ namespace InspireStone
                         {
                             _index = i;
                             _select = _inspireList[_index];
-                            Console.WriteLine($"Selected inspiration: {_select}");
+                            TypingEffect($"Selected inspiration: {_select}");
+                            Thread.Sleep(2000);
                             Inspire.InspireSeperate();
                             isValidSelection = true;
                             break;
@@ -83,12 +88,18 @@ namespace InspireStone
 
         static public void Recording()
         {
+            Inspire.DisplayInspiration();
+            Console.ForegroundColor = ConsoleColor.White;
             Journal.SaveInspaDataToJournal();
             //Prompt the user to reflect about the inspirations, instruct the user what the purpose of a journal entry is for, and who it is for, Postarity, and why it is important.
-            Console.WriteLine("Please take a few moments to reflect on the inspiration and your journey with it through all the steps.");
-            Console.WriteLine("Think about what it means to you and how it relates to your life. Is it important to those who come after you?");
-            Console.WriteLine("Then, write a journal entry about it, explaining your thoughts and feelings.");
+            Console.Clear();
+            TypingEffect("Please take a few moments to reflect on the inspiration and your journey with it through all the steps.");
+            TypingEffect("Think about what it means to you and how it relates to your life. Is it important to those who come after you?");
+            TypingEffect("Then, write a journal entry about it, explaining your thoughts and feelings.");
             // save user input
+            Console.WriteLine();
+            BlinkIndicator();
+            
             string journalEntry = Console.ReadLine();
             Journal.SaveToJournal(journalEntry);
             // call SaveToJournal(input)
@@ -103,12 +114,16 @@ namespace InspireStone
 
             while (true)
             {
+                Console.Clear();
                 // Display luminosity score
                 Inspire.DisplayLuminosity();
-
-                Console.WriteLine("Select an option:");
+                Console.WriteLine();
+                TypingEffect("Select an option:");
+                Console.WriteLine();
                 Console.WriteLine("1. Record inspirationon");
                 Console.WriteLine("2. Return to Main Menu");
+                Console.WriteLine();
+                BlinkIndicator();
 
                 string input = Console.ReadLine();
                 int selection;

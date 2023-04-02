@@ -11,10 +11,14 @@ namespace InspireStone
         {
             // Prompts user for inspiration text and sets it to “_inspire”.
             TypingEffect("Enter the inspiration text: ");
+            Console.WriteLine();
+            BlinkIndicator();
             _inspire = Console.ReadLine();
 
             // Prompts user or inspiration name and sets it to “_name”.
             TypingEffect("Enter the inspiration name: ");
+            Console.WriteLine();
+            BlinkIndicator();
             _name = Console.ReadLine();
 
             // Prompts user to select associated feelings from _feellist.
@@ -46,10 +50,12 @@ namespace InspireStone
             {
                 _inspireList.Add(newInspirationString);
                 TypingEffect($"Added '{_inspire}' to the inspiration list.");
+                Thread.Sleep(2000);
             }
             else
             {
                 Console.WriteLine($"'{_inspire}' is already in the inspiration list.");
+                Thread.Sleep(2000);
             }
 
             // Sets as _select.

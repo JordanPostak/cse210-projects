@@ -22,6 +22,9 @@ using InspireStone;
             {
                 Console.WriteLine("No journal entries found.");
             }
+
+            Console.WriteLine("\nPress Enter to return to the main menu...");
+            Console.ReadLine();
         }
 
         static public void SaveInspaDataToJournal()

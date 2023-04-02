@@ -46,6 +46,7 @@ namespace InspireStone
 
             Console.Clear();
             TypingEffect("Positive item added successfully.");
+            Thread.Sleep(2000);
         }
 
         public void SavePositives()
@@ -201,6 +202,7 @@ namespace InspireStone
                     _luminosity--;
 
                     Console.WriteLine("Positive item deleted.");
+                    Thread.Sleep(2000);
                 }
                 else
                 {

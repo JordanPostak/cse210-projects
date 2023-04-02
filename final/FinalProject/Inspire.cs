@@ -49,7 +49,7 @@ namespace InspireStone
             Program._index = Program._inspireList.IndexOf(Program._select);
         
             //Saves _step, _inspire, _name, _feel, _type, _script, _word, _plan, _link, _act, _review separated by "///" to _select,
-            Program._select = $"{Program._step}///{Program._inspire}///{Program._name}///{Program._feel}///{Program._type}///{Program._script}///{Program._word}///{Program._plan}///{Program._link}///{Program._act}///{Program._review}";
+            Program._select = string.Join("///", Program._step, Program._inspire, Program._name, Program._feel, Program._type, Program._script, Program._word, Program._plan, Program._link, Program._act, Program._review).Replace("//////", "///");
  
             // Save selected inspiration to index of _inspireList
             if (Program._index != -1)
@@ -80,6 +80,7 @@ namespace InspireStone
             // Increment luminosity by 1
             Program._luminosity++;
             Console.WriteLine("Your luminosity score increased by 1!");
+            Thread.Sleep(2000);
         }
 
         static public void DisplayLuminosity()
@@ -89,21 +90,27 @@ namespace InspireStone
 
         static public void DisplayInspiration()
         {
-            // calls InspireSeperate();
-            InspireSeperate();
-
-            // clear console
             Console.Clear();
 
+            // calls InspireSeperate();
+            InspireSeperate();
+            Console.ForegroundColor = ConsoleColor.Cyan;
             //Displays the variables, _step, _inspire, _name, _feel, _type, _script, _word, _plan, _link, _act, _review, in a nice easy to read manner like this:
 
             // Inspiration Name: (_name)
-            Console.WriteLine("Inspiration Name:");
-            Console.WriteLine($"{_name}");
+            Console.WriteLine();
+            TypingEffect("Inspiration Name:");
+            Console.ForegroundColor = ConsoleColor.Red;
+            TypingEffect($"{_name}");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine();
 
             // Type of Inspiration: (_type)
-            Console.WriteLine("Type of Inspiration:");
-            Console.WriteLine($"{_type}");
+            TypingEffect("Type of Inspiration:");
+            Console.ForegroundColor = ConsoleColor.Red;
+            TypingEffect($"{_type}");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine();
 
             // Step: (if _step equals 3 then Ponder, if 4 then Plan, if 5 then Act, if 6 then Review, if 7 then Record)
             string stepString = "";
@@ -125,57 +132,84 @@ namespace InspireStone
                     stepString = "Record";
                     break;
             }
-            Console.WriteLine("Step:");
-            Console.WriteLine($"{stepString}");
+            TypingEffect("Step:");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            TypingEffect($"{stepString}");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine();
 
             // Inspiration Text: (_inspire)
-            Console.WriteLine("Inspiration Text:");
-            Console.WriteLine($"{_inspire}");
+            TypingEffect("Inspiration Text:");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            TypingEffect($"{_inspire}");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine();
 
             // Associated Feeling: (_feel)
-            Console.WriteLine("Associated Feeling:");
-            Console.WriteLine($"{_feel}");
+            TypingEffect("Associated Feeling:");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            TypingEffect($"{_feel}");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine();
 
             // (Only show if _script is not Undefined) Scriptural Support: (_script)
             if (_script != "Undefined")
             {
-                Console.WriteLine("Scriptural Support:");
-                Console.WriteLine($"{_script}");
+                TypingEffect("Scriptural Support:");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                TypingEffect($"{_script}");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine();
             }
 
             // (Only show if _word is not Undefined) Prophetic Support: (_word)
             if (_word != "Undefined")
             {
-                Console.WriteLine("Prophetic Support:");
-                Console.WriteLine($"{_word}");
+                TypingEffect("Prophetic Support:");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                TypingEffect($"{_word}");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine();
             }
 
             // (Only show if _plan is not Undefined) Plan of Action: (_plan)
             if (_plan != "Undefined")
             {
-                Console.WriteLine("Plan of Action:");
-                Console.WriteLine($"{_plan}");
+                TypingEffect("Plan of Action:");
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                TypingEffect($"{_plan}");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine();
             }
 
             // (Only show if _link is not Undefined) Child of: (_link)
             if (_link != "Undefined")
             {
-                Console.WriteLine("Child of:");
-                Console.WriteLine($"{_link}");
+                TypingEffect("Child of:");
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                TypingEffect($"{_link}");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine();
             }
 
             // (Only show if _act is not Undefined) Action: (_act)
             if (_act != "Undefined")
             {
-                Console.WriteLine("Action:");
-                Console.WriteLine($"{_act}");
+                TypingEffect("Action:");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                TypingEffect($"{_act}");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine();
             }
 
             // (Only show if _review is not Undefined) Review: (_review)
             if (_review != "Undefined")
             {
-                Console.WriteLine("Review:");
-                Console.WriteLine($"{_review}");
+                TypingEffect("Review:");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                TypingEffect($"{_review}");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine();
             }
         }
     }

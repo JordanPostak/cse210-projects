@@ -37,7 +37,7 @@ using InspireStone;
         static public string GetFeel(List<string> feelList)
         {
             Console.Clear();
-            TypingEffect("What word best describes the way you feel:");
+            TypingEffect("How does this make you feel?:");
             for (int i = 0; i < feelList.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {feelList[i]}");
@@ -84,6 +84,7 @@ using InspireStone;
                     feel.Add(newFeeling);
                     Console.Clear();
                     Program.TypingEffect($"Added '{newFeeling}' to the feeling list.");
+                    Thread.Sleep(2000);
                     Feelings.SaveFeelings(feel);
                     break;
                 }
