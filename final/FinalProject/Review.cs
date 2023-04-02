@@ -156,6 +156,10 @@ namespace InspireStone
                     {
                         case 1:
                             Reviewing();
+                            if (_select == "") // check if no inspiration has been selected
+                            {
+                                return;
+                            }
                             break;
                         case 2:
                             return;

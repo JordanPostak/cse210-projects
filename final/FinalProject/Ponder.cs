@@ -202,6 +202,10 @@ namespace InspireStone
                         case 1:
                             Console.Clear();
                             PonderInspiration();
+                            if (_select == "") // check if no inspiration has been selected
+                            {
+                                return;
+                            }
                             break;
                         case 2:
                             return;
