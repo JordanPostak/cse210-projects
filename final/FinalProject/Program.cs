@@ -189,6 +189,16 @@ namespace InspireStone
         protected virtual void InspireSelect()
         {
             Console.Clear();
+
+            if (_inspireList.Count == 0)
+            {
+                Console.WriteLine("There are no inspirations to brows.");
+                Console.WriteLine("\nPress enter to return to the main menu.");
+                Console.ReadLine();
+                Console.Clear();
+                Menu();
+            }
+
             TypingEffect("\nSelect an inspiration:");
             Console.WriteLine();
             for (int i = 0; i < _inspireList.Count; i++)

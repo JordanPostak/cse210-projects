@@ -47,7 +47,8 @@ namespace InspireStone
 
             if (!hasInspiration)
             {
-                TypingEffect("There are no inspirations to plan out.");
+                TypingEffect("There are no inspirations to plan.");
+                Thread.Sleep(2000);
                 return;
             }
 
@@ -270,11 +271,18 @@ namespace InspireStone
         {
             Console.Clear();
             InspireSelect();
-            Planit();
-            _link = _link.Replace("Undefined", "");
-            _link += $"Children:{_children}";
-            Inspire.SaveInspiration();
-            Inspire.SaveInspireList();
+            if (_select == "") // check if no inspiration has been selected
+            {
+                return;
+            }
+            else
+            {
+                Planit();
+                _link = _link.Replace("Undefined", "");
+                _link += $"Children:{_children}";
+                Inspire.SaveInspiration();
+                Inspire.SaveInspireList();
+            }
         }
         protected override void Menu()
         {

@@ -32,7 +32,8 @@ namespace InspireStone
 
             if (!hasInspiration)
             {
-                TypingEffect("There are no inspirations to Act on.");
+                TypingEffect("There are no inspirations to plan.");
+                Thread.Sleep(2000);
                 return;
             }
 
@@ -93,27 +94,33 @@ namespace InspireStone
         public void Acting()
         {
             InspireSelect();
-            Inspire.DisplayInspiration();
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine();
-            TypingEffect($"Have you acted on the Inspiration:{_name}? (y/n)");
-            Console.WriteLine();
-            BlinkIndicator();
-            string input = Console.ReadLine();
-            if (input.ToLower() == "y")
-            {
-                _act = "Acted On";
-                StepUpgrade();
-                Inspire.SaveInspiration();
-                Inspire.AddLuminosity();
-                Inspire.SaveInspireList();
-            }
-            else
+             if (_select == "") // check if no inspiration has been selected
             {
                 return;
             }
+            else
+            {
+                Inspire.DisplayInspiration();
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine();
+                TypingEffect($"Have you acted on the Inspiration:{_name}? (y/n)");
+                Console.WriteLine();
+                BlinkIndicator();
+                string input = Console.ReadLine();
+                if (input.ToLower() == "y")
+                {
+                    _act = "Acted On";
+                    StepUpgrade();
+                    Inspire.SaveInspiration();
+                    Inspire.AddLuminosity();
+                    Inspire.SaveInspireList();
+                }
+                else
+                {
+                    return;
+                }
+            }
         }
-
         protected override void Menu()
         {
 

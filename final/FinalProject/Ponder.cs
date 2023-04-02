@@ -28,7 +28,7 @@ namespace InspireStone
 
             if (!hasInspiration)
             {
-                Console.WriteLine("There are no inspirations to ponder.");
+                TypingEffect("There are no inspirations to ponder.");
                 Thread.Sleep(2000);
                 return;
             }
@@ -158,16 +158,24 @@ namespace InspireStone
         public void PonderInspiration()
         {
             InspireSelect();
-            Inspire.DisplayInspiration();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Type();
-            Script();
-            Word();
-            StepUpgrade();
-            Inspire.SaveInspiration();
-            Inspire.AddLuminosity();
-            Inspire.SaveInspireList();
 
+            if (_select == "") // check if no inspiration has been selected
+            {
+                return;
+            }
+            else
+            {
+                Inspire.DisplayInspiration();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Type();
+                Script();
+                Word();
+                StepUpgrade();
+                Inspire.SaveInspiration();
+                Inspire.AddLuminosity();
+                Inspire.SaveInspireList(); 
+            }
+            
         }
         protected override void Menu()
         {
@@ -196,7 +204,6 @@ namespace InspireStone
                             PonderInspiration();
                             break;
                         case 2:
-                            Console.Clear();
                             return;
                         default:
                             Console.WriteLine("Invalid input, please try again.");

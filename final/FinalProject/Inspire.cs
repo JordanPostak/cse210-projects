@@ -61,18 +61,21 @@ namespace InspireStone
         static public void InspireSeperate()
         // InspireSeperate(): takes _select and separates it by the “///” and separates them into the different parts variables; _step, _inspire, _name, _feel, _type, _script, _word, _plan, _link, _act, _review.
         {
-            string[] parts = Program._select.Split(new[] { "///" }, StringSplitOptions.None);
-            if (parts.Length >= 1) Program._step = int.Parse(parts[0]);
-            if (parts.Length >= 2) Program._inspire = parts[1];
-            if (parts.Length >= 3) Program._name = parts[2];
-            if (parts.Length >= 4) Program._feel = parts[3];
-            if (parts.Length >= 5) Program._type = parts[4];
-            if (parts.Length >= 6) Program._script = parts[5];
-            if (parts.Length >= 7) Program._word = parts[6];
-            if (parts.Length >= 8) Program._plan = parts[7];
-            if (parts.Length >= 9) Program._link = parts[8];
-            if (parts.Length >= 10) Program._act = parts[9];
-            if (parts.Length >= 11) Program._review = parts[10];
+            if (Program._select != null)
+            {
+                string[] parts = Program._select.Split(new[] { "///" }, StringSplitOptions.None);
+                if (parts.Length >= 1) Program._step = int.Parse(parts[0]);
+                if (parts.Length >= 2) Program._inspire = parts[1];
+                if (parts.Length >= 3) Program._name = parts[2];
+                if (parts.Length >= 4) Program._feel = parts[3];
+                if (parts.Length >= 5) Program._type = parts[4];
+                if (parts.Length >= 6) Program._script = parts[5];
+                if (parts.Length >= 7) Program._word = parts[6];
+                if (parts.Length >= 8) Program._plan = parts[7];
+                if (parts.Length >= 9) Program._link = parts[8];
+                if (parts.Length >= 10) Program._act = parts[9];
+                if (parts.Length >= 11) Program._review = parts[10];
+            }
         }
 
         static public void AddLuminosity()

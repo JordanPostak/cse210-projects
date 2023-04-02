@@ -29,9 +29,9 @@ namespace InspireStone
 
             if (!hasInspiration)
             {
-                TypingEffect("There are no inspirations to record.");
-                return;
+                Console.WriteLine("There are no inspirations to record.");
                 Thread.Sleep(2000);
+                return;
             }
 
             TypingEffect("\nSelect an inspiration:");
@@ -99,7 +99,7 @@ namespace InspireStone
             // save user input
             Console.WriteLine();
             BlinkIndicator();
-            
+
             string journalEntry = Console.ReadLine();
             Journal.SaveToJournal(journalEntry);
             // call SaveToJournal(input)
@@ -133,7 +133,14 @@ namespace InspireStone
                     {
                         case 1:
                             InspireSelect();
-                            Recording();
+                            if (_select == "") // check if no inspiration has been selected
+                            {
+                                return;
+                            }
+                            else
+                            {
+                                Recording();
+                            }
                             break;
                         case 2:
                             return;

@@ -29,7 +29,8 @@ namespace InspireStone
 
             if (!hasInspiration)
             {
-                Console.WriteLine("There are no inspirations to ponder.");
+                Console.WriteLine("There are no inspirations to review.");
+                Thread.Sleep(2000);
                 return;
             }
 
@@ -119,6 +120,11 @@ namespace InspireStone
         public void Reviewing()
         {
             InspireSelect();
+             if (_select == "") // check if no inspiration has been selected
+            {
+                return;
+            }
+            else
             {
                 Inspire.DisplayInspiration();
                 Console.ForegroundColor = ConsoleColor.DarkMagenta;

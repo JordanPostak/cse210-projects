@@ -1,9 +1,1 @@
-114
-4///Awesomeness///Awesome///Joy///Pearl///1 (2)///3 (4)///Undefined///Undefined///Reviewed
-8///Eat Pizza all the time///Pizza///Gratitude///Habit///1 (2)///3 (4)///daily for 6 weeks///Children:///Acted On///Reviewed
-5///I want to accomplish something///something///Happiness, Satisfaction, Contentment///Mission///Some Random Scripture (BOM)///Some Random Quote (General Conference)///Today///Children:Subtask, Subhabit, ///
-6///finish this assignment///assignment///Hope///Task///something (something)///something (something)///Tonight!!///Undefined///Acted On///Undefined
-6///get in shape///inshape///Hope///Mission///word of wisdom (D&C 89)///Be Healthy (all of them)///Test///Test///Test///Undefined
-3///Subtask to help with something///Subtask///Joy///Undefined///Undefined///Parent:something///Undefined///Undefined
-3///Subhabit to help with something///Subhabit///Strengthen///Undefined///Undefined///Parent:something///Undefined///Undefined
-4///Need to Hurry///Hurry///Hope///Pearl///2 (3)///4 (5)///Undefined///Undefined///Undefined///Undefined
+0
