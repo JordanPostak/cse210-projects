@@ -4,7 +4,7 @@ using System.IO;
 
 namespace InspireStone
 {
-    public class Inspire: Program
+    public abstract class Inspire: Program
     {
 
         // This method saves the current list of inspirations in the _inspireList variable to a file named inspirelist.txt. It starts by opening a StreamWriter object to write to the file. Then, it writes the current luminosity value in the first line of the file and each item in _inspireList to a new line in the file.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using InspireStone;
 
-    public class Journal: Program
+    public abstract class Journal: Program
     {
         static string _currentDate = DateTime.Now.ToString("yyyy-MM-dd");
         // Display journal entries

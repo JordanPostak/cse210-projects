@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using InspireStone;
 
-    public class Feelings: Program
+    public abstract class Feelings: Program
     { 
         // This method loads the feelings from the "feelings.txt" file into the program by reading all the lines from the file and creating a new List<string> to store them in. If the file is not found, it prints an error message. If any other exception occurs, it prints an error message that includes the exception's message.
         static public void LoadFeelings()
