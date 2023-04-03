@@ -223,6 +223,7 @@ namespace InspireStone
 
             // Save the positive items
             SavePositives();
+            Inspire.SaveInspireList();
         }
 
         public void Run()
