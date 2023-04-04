@@ -59,25 +59,25 @@ namespace InspireStone
                 Inspire.DisplayLuminosity();
                 TypingEffect("Please Select from the choices below:");
                 Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("1. Brows Inspirations");
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("2. Listen");
+                Console.WriteLine("1. Listen");
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("3. Receive");
+                Console.WriteLine("2. Receive");
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("4. Ponder");
+                Console.WriteLine("3. Ponder");
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("5. Plan");
+                Console.WriteLine("4. Plan");
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("6. Act");
+                Console.WriteLine("5. Act");
                 Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                Console.WriteLine("7. Review");
+                Console.WriteLine("6. Review");
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("8. Record");
+                Console.WriteLine("7. Record");
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("9. Journal");
-                Console.WriteLine("10. Quit");
+                Console.WriteLine("8. Brows Inspirations");
+                Console.WriteLine("9. Learn about the 7 steps");
+                Console.WriteLine("10. View Journal");
+                Console.WriteLine("11. Quit");
                 Console.WriteLine();
                 BlinkIndicator();
 
@@ -85,11 +85,7 @@ namespace InspireStone
                 string input = Console.ReadLine();
                 switch (input)
                 {
-                    case "1":
-                        InspireSelect();
-                        Console.Clear();
-                        break;
-                    case "2":
+                        case "1":
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Red;
                         TypingEffect("Get ready to Listen...");
@@ -98,7 +94,7 @@ namespace InspireStone
                         listen.Run();
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         break;
-                    case "3":
+                    case "2":
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         TypingEffect("Get ready to Receive...");
@@ -107,7 +103,7 @@ namespace InspireStone
                         recieve.Run();
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         break;
-                    case "4":
+                    case "3":
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         TypingEffect("Get ready to Ponder...");
@@ -116,7 +112,7 @@ namespace InspireStone
                         ponder.Run();
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         break;
-                    case "5":
+                    case "4":
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                         TypingEffect("Get ready to Plan...");
@@ -125,7 +121,7 @@ namespace InspireStone
                         plan.Run();
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         break;
-                    case "6":
+                    case "5":
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Blue;
                         TypingEffect("Get ready to Act...");
@@ -134,7 +130,7 @@ namespace InspireStone
                         act.Run();
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         break;
-                    case "7":
+                    case "6":
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.DarkMagenta;
                         TypingEffect("Get ready to Review...");
@@ -143,22 +139,38 @@ namespace InspireStone
                         review.Run();
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         break;
-                    case "8":
+                    case "7":
                         Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.White;TypingEffect("Get ready to Record...");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        TypingEffect("Get ready to Record...");
                         ShowSpinner();
                         Record record = new Record();
                         record.Run();
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         break;
+                    case "8":
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.Clear();
+                        InspireSelect();
+                        break;
                     case "9":
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.Clear();
+                        TypingEffect("Get ready to Learn...");
+                        ShowSpinner();
+                        Learn learn = new Learn();
+                        learn.Run();
+                        break;
+                    case "10":
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.Clear();
                         Journal.ViewJournal();
                         break;
-                    case "10":
+                    case "11":
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Inspire.SaveInspireList();
                         Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Cyan;TypingEffect("Have a nice day...");
+                        TypingEffect("Have a nice day...");
                         quit = true;
                         break;
                     default:
@@ -167,7 +179,7 @@ namespace InspireStone
                 }
             }
         }
-        
+
         // This method adds a new inspiration to the inspiration list, if it is not already in the list. If the new inspiration is already in the list, it displays a message indicating so.
         protected virtual void AddInspire()
         {
