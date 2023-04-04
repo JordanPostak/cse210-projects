@@ -263,7 +263,7 @@ namespace InspireStone
             for (int i = 0; i < message.Length; i++)
             {
                 Console.Write(message[i]);
-                Thread.Sleep(50);
+                Thread.Sleep(30);
             }
             Console.WriteLine();
         }

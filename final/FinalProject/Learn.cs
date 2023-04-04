@@ -77,13 +77,8 @@ namespace InspireStone
 
         public static void PromptToContinue()
         {
-            Console.WriteLine("Press Enter to continue or type 'exit' to return to the main menu:");
+            Console.WriteLine("Press Enter to continue");
             string input = Console.ReadLine();
-            if (input.ToLower() == "exit")
-            {
-                Console.WriteLine("Returning to main menu...");
-                // Add code here to return to the main menu
-            }
         }
 
                 protected override void Menu()
