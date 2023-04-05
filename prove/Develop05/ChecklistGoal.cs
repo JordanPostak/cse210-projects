@@ -10,11 +10,13 @@ namespace EternalQuest
         public void Bonus()
         {
             // create a new instance of ChecklistGoal class
-            ChecklistGoal newGoal = new ChecklistGoal();
             Console.WriteLine("How many times should this goal be completed?");
 
             // read user input for goal count
-            _count = Console.ReadLine();
+            while (!int.TryParse(Console.ReadLine(), out _total))
+            {
+                Console.WriteLine("Invalid input, please enter a valid integer.");
+            }
 
             Console.WriteLine("How many bonus points will be earned when finished?");
             int bonus;
@@ -30,29 +32,23 @@ namespace EternalQuest
         }
 
         // override method from Program class
-        public override void AddToGoalsList()
+        protected override void AddToGoalsList()
         {
-            // create a new instance of ChecklistGoal class
-            ChecklistGoal newGoal = new ChecklistGoal();
+            _goalType = "ChecklistGoal"; // set the goal type
+            _completed = "[]"; // initialize the completed field as an empty array
+            _comp = 0;
+            _count = $"[{_comp}/{_total}]"; // set the count field with the total and current count of the goal
 
-            newGoal._goaltype = "ChecklistGoal"; // set the goal type
-            newGoal._completed = "[]"; // initialize the completed field as an empty array
-            newGoal._count = $"[0/{_count}]"; // set the count field with the total and current count of the goal
-            newGoal._name = _name; // set the name field of the goal
-            newGoal._description = _description; // set the description field of the goal
-            newGoal._points = _points; // set the points field of the goal
-            newGoal._bonus = _bonus; // set the bonus field of the goal
-            Program._goals.Add(newGoal); // add the new goal to the goals list in Program class
+            string newGoal = $"{_goalType},{_completed},{_comp},{_total},{_name},{_description},{_points},{_bonus}";
+
+            _goals.Add(newGoal); // add the new goal to the goals list in Program class
         }
 
         // define a method to run the creation of a checklist goal
         public void Run()
         {
-            // create a new instance of ChecklistGoal class
-           ChecklistGoal newGoal = new ChecklistGoal();
-
            // call the GoalStart method from the Program class
-           GoalStart(); 
+           Goals.GoalStart(); 
 
            // call the Bonus method to set bonus points for the goal
            Bonus();
@@ -60,11 +56,10 @@ namespace EternalQuest
            // call the AddToGoalsList method to add the new goal to the goals list
            AddToGoalsList();
 
-           // display the updated goals list in the console
-           Console.WriteLine($"{Program._goals}");
-
            // display the name of the new goal created
-           Console.WriteLine($"New checklist goal created: {_name}");
+            Console.WriteLine();
+            Console.WriteLine($"New simple goal created: {_name}");
+            Console.WriteLine();
 
            // exit the method
            return;

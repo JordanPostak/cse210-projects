@@ -6,36 +6,29 @@ namespace EternalQuest
 {
     public class SimpleGoal : Program
     {
-        public override void AddToGoalsList()
+        protected override void AddToGoalsList()
         {
-            // Create a new instance of SimpleGoal
-            SimpleGoal newGoal = new SimpleGoal();
-
              // Set the properties of the new SimpleGoal object
-            newGoal._goaltype = "SimpleGoal";
-            newGoal._completed = "[]";
-            newGoal._name = _name;
-            newGoal._description = _description;
-            newGoal._points = _points;
+            _goalType = "SimpleGoal";
+            _completed = "[]";
+
+            string newGoal = $"{_goalType},{_completed},{_name},{_description},{_points}";
 
             // Add the new SimpleGoal object to the goals list in the base class (Program)
-            Program._goals.Add(newGoal);
+            _goals.Add(newGoal);
         }
         public void Run()
         {
-            // Create a new instance of SimpleGoal
-            SimpleGoal newGoal = new SimpleGoal();
-
             // Call the GoalStart method to get user input for the goal
-            GoalStart(); 
+            Goals.GoalStart(); 
 
             // Add the new goal to the goals list
             AddToGoalsList();
 
-            // Print out the updated goals list and a message indicating that a new simple goal was created
-            Console.WriteLine($"{Program._goals}");
+            // Print out a message indicating that a new simple goal was created
+            Console.WriteLine();
             Console.WriteLine($"New simple goal created: {_name}");
-
+            Console.WriteLine();
             
             return; 
         }

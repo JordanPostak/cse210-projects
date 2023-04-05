@@ -1,1 +1,8 @@
-
+2050,8,Acolyte
+EternalGoal,eat,eat food all the time,100
+EternalGoal,drink water,drink water a lot daily,100
+SimpleGoal,[],test,I'm testing to see if this loads,200
+SimpleGoal,[],groom puppy,need to groom my puppy this week,300
+SimpleGoal,[],Wifepickup,pick up my wife from work,100
+EternalGoal,read scripture,Read a scripture from the BOM,100
+ChecklistGoal,[X],7,7,Steps,Walk up and down the steps,100,1000
